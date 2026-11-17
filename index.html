@@ -1,122 +1,144 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ReiyCode — C++ Practice Lab</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ReiyAd — DSA Practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#0b1020;--panel:#121a2e;--panel2:#17223a;--line:#263550;--text:#edf3ff;--muted:#93a4c2;--blue:#77a9ff;--green:#5de0ae;--red:#ff7d8c;--yellow:#f3c969}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#182b50 0,transparent 40%),var(--bg);color:var(--text);font-family:Manrope,system-ui,sans-serif;min-height:100vh}button,select,textarea,input{font:inherit}header{height:70px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 4vw;background:#0b1020d9;position:sticky;top:0;z-index:4;backdrop-filter:blur(16px)}.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:19px;letter-spacing:-.6px}.logo{width:35px;height:35px;border-radius:11px;background:linear-gradient(135deg,#6c9cff,#6ce0ba);display:grid;place-items:center;color:#081226;font-weight:900}.brand small{display:block;font-size:10px;color:var(--muted);letter-spacing:1.8px;font-weight:700}.topright{color:var(--muted);font-size:12px}.wrap{max-width:1500px;margin:auto;padding:26px 3vw 50px}.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:22px}.eyebrow{color:var(--green);font-size:11px;letter-spacing:2px;font-weight:800}.hero h1{font-size:clamp(25px,4vw,38px);letter-spacing:-1.6px;margin:7px 0}.hero p{margin:0;color:var(--muted);font-size:13px}.status{border:1px solid var(--line);border-radius:30px;padding:9px 13px;color:var(--muted);font-size:11px;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(280px,.78fr) minmax(450px,1.35fr);gap:18px}.panel{background:linear-gradient(160deg,#151f35,#10182a);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 15px 45px #0002}.panelhead{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panelhead strong{font-size:13px}.sub{color:var(--muted);font-size:11px}.content{padding:19px}.tag{font-size:10px;color:var(--green);background:#14372f;padding:5px 8px;border-radius:20px;font-weight:800}.problem h2{font-size:22px;margin:10px 0}.problem p,.problem li{color:#b4c1d8;font-size:13px;line-height:1.7}.problem h3{font-size:13px;margin:23px 0 8px}.sample{background:#0b1222;border:1px solid var(--line);border-radius:9px;padding:12px;font:12px/1.7 'DM Mono',monospace;white-space:pre-wrap;color:#c5d6f4}.select{background:#0b1427;border:1px solid var(--line);color:var(--text);padding:9px 12px;border-radius:8px;font-size:12px}.editorbar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;padding:11px 14px;border-bottom:1px solid var(--line)}.editorbar label{font-size:11px;color:var(--muted)}.editorbar select{margin-left:6px}.editor{width:100%;height:420px;resize:vertical;background:#090f1d;color:#d9e6ff;border:0;outline:0;padding:18px;font:13px/1.65 'DM Mono',monospace;tab-size:4;white-space:pre;overflow:auto}.actions{display:flex;gap:9px;align-items:center;padding:13px 15px;border-top:1px solid var(--line);flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:9px;padding:10px 14px;background:#1a2944;color:var(--text);font-size:12px;font-weight:800;cursor:pointer}.btn:hover{filter:brightness(1.18)}.primary{background:linear-gradient(100deg,#79a8ff,#63d9ba);color:#081426;border:0}.btn:disabled{opacity:.5;cursor:wait}.output{margin:0 15px 15px;border:1px solid var(--line);border-radius:10px;overflow:hidden}.outputhead{background:#0d1526;padding:11px 13px;display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}#output{padding:14px;min-height:75px;max-height:240px;overflow:auto;white-space:pre-wrap;font:12px/1.65 'DM Mono',monospace;color:#c8d8f4}.metrics{display:flex;gap:8px;flex-wrap:wrap}.metric{background:#0b1427;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:10px;color:var(--muted)}.metric b{color:var(--text);margin-left:5px}.tests{padding:15px;border-top:1px solid var(--line)}.tests h3{font-size:12px;margin:0 0 10px}.testrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.testrow textarea{width:100%;min-height:75px;resize:vertical;background:#0b1427;border:1px solid var(--line);border-radius:8px;color:var(--text);padding:10px;font:11px/1.5 'DM Mono',monospace}.footnote{color:var(--muted);font-size:10px;line-height:1.6;margin:14px 2px}.complexity{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.complexity label{font-size:11px;color:var(--muted)}.complexity select{display:block;margin-top:5px}.good{color:var(--green)}.bad{color:var(--red)}@media(max-width:900px){.layout{grid-template-columns:1fr}.editor{height:360px}.hero{align-items:start;flex-direction:column}}@media(max-width:520px){header{padding:0 15px}.wrap{padding:20px 12px}.content{padding:15px}.testrow{grid-template-columns:1fr}}
-</style></head>
-<body>
-<header><div class="brand"><div class="logo">R</div><div>ReiyCode<small>CPP PRACTICE LAB</small></div></div><div class="topright">Learn · Code · Test · Improve</div></header>
+:root{--bg:#090d18;--panel:#111827;--panel2:#182338;--line:#28364d;--txt:#edf3ff;--muted:#93a4bd;--blue:#83aaff;--green:#62e0b2;--red:#ff7e8e;--yellow:#f2ca70}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font-family:Manrope,system-ui}button,input,select,textarea{font:inherit}button{cursor:pointer}.top{height:66px;display:flex;align-items:center;justify-content:space-between;padding:0 4vw;border-bottom:1px solid var(--line);background:#0b1120;position:sticky;top:0;z-index:5}.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;cursor:pointer}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px}.mark{width:39px;height:39px;border-radius:12px;background:linear-gradient(135deg,#7daaff,#5ce0b1);display:grid;place-items:center;color:#071323}.mark svg{width:30px;height:22px}.nav{display:flex;gap:8px;align-items:center}.nav button,.btn{background:#18243a;color:var(--txt);border:1px solid var(--line);border-radius:9px;padding:9px 13px;font-size:12px;font-weight:800}.nav button.active,.primary{background:linear-gradient(100deg,#7daaff,#5ce0b1);color:#071323;border:0}.wrap{max-width:1450px;margin:auto;padding:30px 4vw 60px}.muted{color:var(--muted)}.eyebrow{font-size:10px;color:var(--green);font-weight:800;letter-spacing:2px}.hero{padding:30px;border:1px solid var(--line);border-radius:18px;background:radial-gradient(ellipse at 80% 0%,#25416b 0,transparent 45%),linear-gradient(135deg,#151f33,#101827);display:flex;justify-content:space-between;gap:20px;align-items:center}.hero h1{font-size:clamp(28px,4vw,46px);letter-spacing:-2px;margin:9px 0}.hero p{color:var(--muted);font-size:13px;max-width:600px;line-height:1.7}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.stat,.card,.panel{border:1px solid var(--line);border-radius:14px;background:var(--panel)}.stat{padding:16px}.stat b{font-size:24px;display:block}.stat span{font-size:11px;color:var(--muted)}.sectionhead{display:flex;align-items:end;justify-content:space-between;margin:30px 0 13px}.sectionhead h2{margin:0;font-size:20px}.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.tile{padding:20px;text-align:left;color:var(--txt);cursor:pointer;transition:.15s}.tile:hover{border-color:var(--blue);transform:translateY(-2px)}.tile .symbol{font-size:25px}.tile h3{margin:10px 0 5px}.tile p{font-size:12px;color:var(--muted);line-height:1.6}.tilefoot{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}.field{background:#0b1322;border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:10px 12px;font-size:12px}.toolbar input{min-width:220px;flex:1}.list{overflow:hidden}.problemrow{display:grid;grid-template-columns:48px minmax(180px,1fr) 100px 90px;gap:10px;align-items:center;padding:14px 17px;border-bottom:1px solid var(--line);cursor:pointer}.problemrow:hover{background:#18243a}.problemrow:last-child{border:0}.num{color:var(--muted);font:12px 'DM Mono'}.pname{font-size:13px;font-weight:700}.difficulty{font-size:11px}.easy{color:var(--green)}.medium{color:var(--yellow)}.hard{color:var(--red)}.solved{color:var(--green);font-size:11px}.workspace{display:grid;grid-template-columns:minmax(300px,.85fr) minmax(400px,1.15fr);gap:14px}.panel{overflow:hidden}.panelhead{padding:14px 17px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.content{padding:18px}.content h2{font-size:22px;margin:10px 0}.content p,.content li{font-size:13px;line-height:1.75;color:#bdc9dc}.content h3{font-size:13px;margin:22px 0 8px}.sample{background:#0a1120;border:1px solid var(--line);padding:12px;border-radius:9px;white-space:pre-wrap;font:12px/1.7 'DM Mono';color:#cbd9f1}.editor{width:100%;height:440px;background:#080e19;color:#d9e6ff;border:0;outline:0;padding:17px;font:13px/1.65 'DM Mono';resize:vertical;tab-size:4}.editorbar,.actions{padding:11px 13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}.actions{border-top:1px solid var(--line);border-bottom:0}.output{margin:0 13px 13px;background:#090f1b;border:1px solid var(--line);border-radius:9px;min-height:75px;padding:13px;white-space:pre-wrap;font:12px/1.6 'DM Mono';color:#cbd9f1}.tiny{font-size:11px}.tag{padding:5px 8px;border-radius:20px;background:#17372f;color:var(--green);font-size:10px;font-weight:800}.hide{display:none!important}.auth{max-width:430px;margin:55px auto;padding:25px}.auth input{width:100%;margin:8px 0 13px}.auth h2{margin-top:0}.foot{font-size:10px;color:var(--muted);line-height:1.6;margin-top:20px}.progress{height:7px;background:#26334a;border-radius:10px;overflow:hidden;margin-top:10px}.progress i{display:block;height:100%;background:linear-gradient(90deg,#80aaff,#5de0b0)}@media(max-width:850px){.workspace{grid-template-columns:1fr}.hero{align-items:flex-start;flex-direction:column}.stats{grid-template-columns:repeat(3,1fr)}}@media(max-width:560px){.top{padding:0 12px}.nav button{padding:8px;font-size:10px}.wrap{padding:18px 12px}.tiles{grid-template-columns:1fr}.problemrow{grid-template-columns:30px 1fr 65px}.problemrow .topiccol{display:none}.stats{gap:6px}.stat{padding:10px}.stat b{font-size:19px}}
+</style></head><body>
+<header class="top"><div class="brand" onclick="home()"><div class="mark"><svg viewBox="0 0 60 36" fill="none"><path d="M5 18C13 2 23 2 30 18C37 34 47 34 55 18C47 2 37 2 30 18C23 34 13 34 5 18Z" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>ReiyAd<small>DSA PRACTICE ARENA</small></div></div><nav class="nav"><button id="homeNav" class="active" onclick="home()">Home</button><button onclick="showList('Stack')">Stacks</button><button onclick="showList('Queue')">Queues</button><button id="accountNav" onclick="showAuth()">Login</button></nav></header>
 <main class="wrap">
-<section class="hero"><div><div class="eyebrow">YOUR PERSONAL CODING ARENA</div><h1>Think it. Code it. <span style="color:var(--green)">Crack it.</span></h1><p>Practice C++ in your browser with custom input, test runs and performance stats.</p></div><div class="status" id="connection">● Compiler endpoint: Judge0 CE</div></section>
-<div class="layout">
-<section class="panel problem"><div class="panelhead"><strong>Problem workspace</strong><span class="tag">EASY</span></div><div class="content"><label class="sub">SELECT PRACTICE TOPIC</label><br><select class="select" id="topic" style="margin-top:8px;width:100%"><option value="min">Min Stack</option><option value="sum">Two Sum</option><option value="rev">Reverse a String</option><option value="pal">Palindrome Number</option></select>
-<h2 id="ptitle">Min Stack</h2><p id="description">Design a stack that supports push, pop, top and retrieving the minimum element in constant time.</p>
-<h3>Operations</h3><ul id="operations"><li><b>push(x)</b> — Push element x onto the stack.</li><li><b>pop()</b> — Remove the top element.</li><li><b>top()</b> — Get the top element.</li><li><b>getMin()</b> — Retrieve the minimum element.</li></ul>
-<h3>Example input</h3><div class="sample" id="sample">push -2
-push 0
-push -3
-getMin
-pop
-top
-getMin</div>
-<h3>Example output</h3><div class="sample" id="expected">-3
-0
--2</div>
-<h3>Complexity notes</h3><div class="complexity"><label>Time complexity<select id="tc" class="select"><option>O(1)</option><option>O(log n)</option><option>O(n)</option><option>O(n log n)</option><option>O(n²)</option><option>O(2ⁿ)</option></select></label><label>Space complexity<select id="sc" class="select"><option>O(1)</option><option>O(log n)</option><option>O(n)</option><option>O(n²)</option></select></label></div><p class="footnote">Complexity selections are your own analysis notes. The compiler measures execution time and memory; it does not automatically prove Big-O complexity.</p></div></section>
-<section class="panel"><div class="panelhead"><div><strong>C++ Code Editor</strong><div class="sub">GNU G++17 · Standard input/output</div></div><span class="tag">C++17</span></div>
-<div class="editorbar"><label>Language <select class="select" id="language"><option value="54">C++ (GCC 9.2.0)</option></select></label><label>Editor <select class="select" id="font"><option value="13">13 px</option><option value="15">15 px</option><option value="17">17 px</option></select></label></div>
-<textarea class="editor" id="code" spellcheck="false">#include <iostream>
-#include <stack>
-using namespace std;
-
-int main() {
-    int n;
-    cin >> n;
-
-    stack<long long> st;
-    long long mini = 0;
-
-    while (n--) {
-        string op;
-        cin >> op;
-
-        if (op == "push") {
-            long long x;
-            cin >> x;
-            if (st.empty()) {
-                st.push(x);
-                mini = x;
-            } else if (x >= mini) {
-                st.push(x);
-            } else {
-                st.push(2LL * x - mini);
-                mini = x;
-            }
-        } else if (op == "pop") {
-            if (!st.empty()) {
-                long long t = st.top();
-                st.pop();
-                if (t < mini) mini = 2LL * mini - t;
-            }
-        } else if (op == "top") {
-            if (!st.empty()) {
-                long long t = st.top();
-                cout << (t < mini ? mini : t) << '\n';
-            }
-        } else if (op == "getMin") {
-            if (!st.empty()) cout << mini << '\n';
-        }
-    }
-    return 0;
-}</textarea>
-<div class="tests"><h3>Custom test input</h3><div class="testrow"><textarea id="stdin">7
-push -2
-push 0
-push -3
-getMin
-pop
-top
-getMin</textarea><textarea id="stdout" readonly placeholder="Expected output (optional)"></textarea></div><div class="sub" style="margin-top:7px">Enter input in the left box. Expected output is optional and used for comparison.</div></div>
-<div class="actions"><button class="btn primary" id="run">▶ Run Code</button><button class="btn" id="reset">Reset code</button><button class="btn" id="clear">Clear output</button><span class="sub" id="runstate">Ready</span></div>
-<div class="output"><div class="outputhead"><span>CONSOLE OUTPUT</span><div class="metrics"><span class="metric">Time<b id="time">—</b></span><span class="metric">Memory<b id="memory">—</b></span><span class="metric">Status<b id="result">Ready</b></span></div></div><div id="output">Your program output will appear here.</div></div>
-</section></div>
-<p class="footnote">Execution is sent to the public Judge0 CE endpoint. Public service availability, request limits, and CORS policies are controlled by that provider and are not guaranteed by ReiyCode. Do not submit passwords, private keys, or sensitive data. Your source code is sent to the execution provider when you run it.</p>
+<section id="homePage"><div class="hero"><div><div class="eyebrow">YOUR NEXT DSA BREAKTHROUGH STARTS HERE</div><h1>Prepare. Practice. <span style="color:var(--green)">Progress.</span></h1><p>Sharpen your data structures and algorithms skills with curated Stack and Queue challenges. Pick a problem, write your C++ solution and track your practice.</p><button class="btn primary" onclick="showList('All')">Explore problems →</button></div><div style="font-size:70px;color:#75aaff">∞</div></div>
+<div class="stats"><div class="stat"><b id="totalCount">0</b><span>Practice problems</span></div><div class="stat"><b id="solvedCount">0</b><span>Marked solved</span></div><div class="stat"><b id="savedCount">0</b><span>Drafts saved</span></div></div>
+<div class="sectionhead"><div><div class="eyebrow">LEARNING PATHS</div><h2>Choose your topic</h2></div></div><div class="tiles"><div class="card tile" onclick="showList('Stack')"><div class="symbol">▤</div><h3>Stack</h3><p>Master LIFO operations, monotonic stacks, expression evaluation and more.</p><div class="tilefoot"><span id="stackCount">0 problems</span><span>Explore →</span></div></div><div class="card tile" onclick="showList('Queue')"><div class="symbol">⇄</div><h3>Queue</h3><p>Practice FIFO, deque, circular queues, BFS and priority queue patterns.</p><div class="tilefoot"><span id="queueCount">0 problems</span><span>Explore →</span></div></div></div>
+<div class="sectionhead"><h2>Continue practicing</h2><span class="muted tiny">Your browser-saved drafts</span></div><div class="card" id="continueList"></div>
+<p class="foot">Problem titles and links refer to public LeetCode exercises. This independent practice site is not affiliated with LeetCode. Descriptions are concise summaries, not copied official statements.</p></section>
+<section id="listPage" class="hide"><div class="eyebrow">PROBLEM LIBRARY</div><div class="sectionhead"><h2 id="listTitle">Stack problems</h2><button class="btn" onclick="home()">← Home</button></div><div class="toolbar"><input class="field" id="search" placeholder="Search problems..." oninput="renderList()"><select class="field" id="difficulty" onchange="renderList()"><option value="All">All difficulties</option><option>Easy</option><option>Medium</option><option>Hard</option></select><select class="field" id="statusFilter" onchange="renderList()"><option value="All">All status</option><option value="Solved">Solved</option><option value="Unsolved">Unsolved</option></select></div><div class="card list" id="problemList"></div></section>
+<section id="workPage" class="hide"><div class="sectionhead"><div><div class="eyebrow" id="workTopic">STACK</div><h2 id="workTitle">Problem</h2><span id="workMeta" class="muted tiny"></span></div><button class="btn" onclick="showList(currentTopic)">← Problems</button></div><div class="workspace"><section class="panel"><div class="panelhead"><b>Problem description</b><span id="workDifficulty" class="difficulty"></span></div><div class="content"><h2 id="descTitle"></h2><p id="description"></p><h3>Example</h3><div class="sample" id="example"></div><h3>Constraints / notes</h3><p id="notes">Consider edge cases, empty input and large values. Choose an efficient data structure.</p><p><a id="leetcodeLink" target="_blank" rel="noopener" style="color:var(--blue)">Open original problem ↗</a></p><button class="btn" id="solvedButton" onclick="toggleSolved()">Mark as solved ✓</button></div></section><section class="panel"><div class="panelhead"><div><b>C++ Code Editor</b><div class="muted tiny">C++17 · Your draft autosaves on this device</div></div><span class="tag">C++17</span></div><div class="editorbar"><span class="tiny muted" id="saveState">Autosave ready</span><button class="btn" onclick="resetCode()">Reset starter</button><button class="btn" onclick="copyCode()">Copy</button></div><textarea class="editor" id="code" spellcheck="false"></textarea><div class="editorbar"><label class="tiny muted">Custom input</label><button class="btn" onclick="runCode()">▶ Run code</button><button class="btn" onclick="clearOutput()">Clear output</button></div><textarea class="field" id="stdin" style="width:100%;height:75px;border:0;border-radius:0;resize:vertical" placeholder="Enter standard input"></textarea><div class="output" id="output">Your program output will appear here.</div><div class="content tiny muted">Code is stored in local browser storage for this device. Execution uses the public Judge0 CE service and is subject to its availability and limits.</div></section></div></section>
+<section id="authPage" class="hide"><div class="card auth"><div class="eyebrow">REIYAD ACCOUNT</div><h2 id="authTitle">Welcome to ReiyAd</h2><p class="muted tiny">Create a local profile to label your progress on this browser.</p><label class="tiny muted">Display name</label><input class="field" id="displayName" placeholder="Your name"><label class="tiny muted">Email (optional)</label><input class="field" id="displayEmail" placeholder="you@example.com" type="email"><button class="btn primary" style="width:100%" onclick="saveProfile()">Continue</button><button class="btn" style="width:100%;margin-top:9px" onclick="logout()">Sign out</button><p class="foot">This is a local profile, not secure authentication. No password is collected. Google sign-in and cloud sync need Firebase project configuration and authorized domains; they are not enabled yet.</p></div></section>
 </main>
 <script>
-const $=id=>document.getElementById(id);
-const starter=$('code').value;
-const topics={
-min:{title:'Min Stack',desc:'Design a stack that supports push, pop, top and retrieving the minimum element in constant time.',ops:['push(x) — Push element x onto the stack.','pop() — Remove the top element.','top() — Get the top element.','getMin() — Retrieve the minimum element.'],input:'7\npush -2\npush 0\npush -3\ngetMin\npop\ntop\ngetMin',out:'-3\n0\n-2',tag:'EASY'},
-sum:{title:'Two Sum',desc:'Given an array of integers and a target, print the indices of two values that add up to the target. This console exercise uses n, the array, then target.',ops:['Read n.','Read n integers.','Read target.','Print the two zero-based indices.'],input:'4\n2 7 11 15\n9',out:'0 1',tag:'EASY'},
-rev:{title:'Reverse a String',desc:'Read one line of text and print it in reverse order.',ops:['Read a complete line.','Reverse its characters.','Print the result.'],input:'hello world',out:'dlrow olleh',tag:'EASY'},
-pal:{title:'Palindrome Number',desc:'Read an integer and determine whether it reads the same forward and backward.',ops:['Read an integer x.','Print true if it is a palindrome, otherwise false.'],input:'121',out:'true',tag:'EASY'}
+const problems=[
+[71,'Simplify Path','Stack','Medium','Normalize a Unix-style absolute path by resolving . and .. components.','Input: /home//foo/  Output: /home/foo','71-simplify-path'],
+[84,'Largest Rectangle in Histogram','Stack','Hard','Find the largest rectangular area possible in a histogram.','Input: [2,1,5,6,2,3]  Output: 10','84-largest-rectangle-in-histogram'],
+[85,'Maximal Rectangle','Stack','Hard','Find the largest all-ones rectangle in a binary matrix.','Input: [["1","0","1"],["1","1","1"]]  Output: 3','85-maximal-rectangle'],
+[94,'Binary Tree Inorder Traversal','Stack','Easy','Return the inorder traversal of a binary tree; solve iteratively with a stack.','Input: root = [1,null,2,3]  Output: [1,3,2]','94-binary-tree-inorder-traversal'],
+[144,'Binary Tree Preorder Traversal','Stack','Easy','Return preorder traversal, using an explicit stack instead of recursion.','Input: root = [1,null,2,3]  Output: [1,2,3]','144-binary-tree-preorder-traversal'],
+[145,'Binary Tree Postorder Traversal','Stack','Easy','Return postorder traversal using an iterative stack approach.','Input: root = [1,null,2,3]  Output: [3,2,1]','145-binary-tree-postorder-traversal'],
+[150,'Evaluate Reverse Polish Notation','Stack','Medium','Evaluate an arithmetic expression written in Reverse Polish Notation.','Input: ["2","1","+","3","*"]  Output: 9','150-evaluate-reverse-polish-notation'],
+[155,'Min Stack','Stack','Medium','Design a stack supporting push, pop, top and minimum retrieval in constant time.','Operations: push(-2), push(0), push(-3), getMin()  Output: -3','155-min-stack'],
+[173,'Binary Search Tree Iterator','Stack','Medium','Implement an iterator over a BST that returns values in ascending order.','Operations: next(), hasNext()','173-binary-search-tree-iterator'],
+[224,'Basic Calculator','Stack','Hard','Evaluate a basic expression string containing +, -, parentheses and spaces.','Input: "(1+(4+5+2)-3)+(6+8)"  Output: 23','224-basic-calculator'],
+[227,'Basic Calculator II','Stack','Medium','Evaluate an expression with non-negative integers and +, -, *, / operators.','Input: "3+2*2"  Output: 7','227-basic-calculator-ii'],
+[232,'Implement Queue using Stacks','Stack','Easy','Implement FIFO queue operations using only two stacks.','push(1), push(2), peek(), pop(), empty()','232-implement-queue-using-stacks'],
+[316,'Remove Duplicate Letters','Stack','Medium','Remove repeated letters so each appears once and the result is lexicographically smallest.','Input: "cbacdcbc"  Output: "acdb"','316-remove-duplicate-letters'],
+[321,'Create Maximum Number','Stack','Hard','Create the maximum length-k number from two arrays while preserving relative order.','Input: nums1=[3,4,6,5], nums2=[9,1,2,5,8,3], k=5','321-create-maximum-number'],
+[331,'Verify Preorder Serialization of a Binary Tree','Stack','Medium','Determine whether a comma-separated preorder serialization is valid.','Input: "9,3,4,#,#,1,#,#,2,#,6,#,#"  Output: true','331-verify-preorder-serialization-of-a-binary-tree'],
+[394,'Decode String','Stack','Medium','Decode nested repetition expressions such as k[encoded_string].','Input: "3[a2[c]]"  Output: "accaccacc"','394-decode-string'],
+[402,'Remove K Digits','Stack','Medium','Remove k digits from a numeric string to produce the smallest possible number.','Input: num="1432219", k=3  Output: "1219"','402-remove-k-digits'],
+[456,'132 Pattern','Stack','Medium','Detect whether an array contains indices i < j < k with nums[i] < nums[k] < nums[j].','Input: [3,1,4,2]  Output: true','456-132-pattern'],
+[496,'Next Greater Element I','Stack','Easy','For each query value, find its next greater value in another array.','Input: nums1=[4,1,2], nums2=[1,3,4,2]  Output: [-1,3,-1]','496-next-greater-element-i'],
+[503,'Next Greater Element II','Stack','Medium','Find next greater elements in a circular array.','Input: [1,2,1]  Output: [2,-1,2]','503-next-greater-element-ii'],
+[636,'Exclusive Time of Functions','Stack','Medium','Compute exclusive execution time for each function from start/end logs.','Input: n=2, logs=[...]','636-exclusive-time-of-functions'],
+[654,'Maximum Binary Tree','Stack','Medium','Construct a maximum binary tree from an array using a monotonic stack.','Input: [3,2,1,6,0,5]','654-maximum-binary-tree'],
+[682,'Baseball Game','Stack','Easy','Calculate a score from operations that add, cancel or double previous scores.','Input: ["5","2","C","D","+"]  Output: 30','682-baseball-game'],
+[735,'Asteroid Collision','Stack','Medium','Simulate collisions between asteroids moving in opposite directions.','Input: [5,10,-5]  Output: [5,10]','735-asteroid-collision'],
+[739,'Daily Temperatures','Stack','Medium','For each day, find how many days until a warmer temperature.','Input: [73,74,75,71,69,72,76,73]  Output: [1,1,4,2,1,1,0,0]','739-daily-temperatures'],
+[768,'Max Chunks To Make Sorted II','Stack','Hard','Split an array into the maximum number of sortable chunks.','Input: [5,4,3,2,1]  Output: 1','768-max-chunks-to-make-sorted-ii'],
+[853,'Car Fleet','Stack','Medium','Count car fleets that arrive at a target without passing one another.','Input: target=12, position=[10,8,0,5,3], speed=[2,4,1,1,3]  Output: 3','853-car-fleet'],
+[856,'Score of Parentheses','Stack','Medium','Compute the score of a balanced parentheses string.','Input: "(()(()))"  Output: 6','856-score-of-parentheses'],
+[895,'Maximum Frequency Stack','Stack','Hard','Design a stack that pops the most frequent value, breaking ties by recency.','Operations: push(x), pop()','895-maximum-frequency-stack'],
+[901,'Online Stock Span','Stack','Medium','Return the stock span for each incoming daily price.','Input prices: [100,80,60,70,60,75,85]  Output: [1,1,1,2,1,4,6]','901-online-stock-span'],
+[907,'Sum of Subarray Minimums','Stack','Medium','Sum the minimum value of every contiguous subarray, modulo 1e9+7.','Input: [3,1,2,4]  Output: 17','907-sum-of-subarray-minimums'],
+[946,'Validate Stack Sequences','Stack','Medium','Check whether pushed and popped sequences can describe a valid stack.','pushed=[1,2,3,4,5], popped=[4,5,3,2,1]  Output: true','946-validate-stack-sequences'],
+[962,'Maximum Width Ramp','Stack','Medium','Find the maximum j-i where i < j and nums[i] <= nums[j].','Input: [6,0,8,2,1,5]  Output: 4','962-maximum-width-ramp'],
+[1003,'Check If Word Is Valid After Substitutions','Stack','Medium','Repeatedly remove valid abc groups and determine if the string becomes empty.','Input: "aabcbc"  Output: true','1003-check-if-word-is-valid-after-substitutions'],
+[1047,'Remove All Adjacent Duplicates In String','Stack','Easy','Remove adjacent equal character pairs until no such pair remains.','Input: "abbaca"  Output: "ca"','1047-remove-all-adjacent-duplicates-in-string'],
+[1209,'Remove All Adjacent Duplicates in String II','Stack','Medium','Remove groups of k adjacent equal characters repeatedly.','Input: s="deeedbbcccbdaa", k=3  Output: "aa"','1209-remove-all-adjacent-duplicates-in-string-ii'],
+[1381,'Design a Stack With Increment Operation','Stack','Medium','Design a stack with push, pop and increment of the bottom k elements.','Operations: push, pop, increment','1381-design-a-stack-with-increment-operation'],
+[1475,'Final Prices With a Special Discount in a Shop','Stack','Easy','Apply the next less-than-or-equal price as a discount.','Input: [8,4,6,2,3]  Output: [4,2,4,2,3]','1475-final-prices-with-a-special-discount-in-a-shop'],
+[1541,'Minimum Insertions to Balance a Parentheses String','Stack','Medium','Find the minimum insertions needed for each opening parenthesis to match two closers.','Input: "(()))"  Output: 1','1541-minimum-insertions-to-balance-a-parentheses-string'],
+[1670,'Design Front Middle Back Queue','Queue','Medium','Design a queue supporting push and pop at front, middle and back.','Operations: pushFront, pushMiddle, pushBack, popFront, popMiddle, popBack','1670-design-front-middle-back-queue'],
+[1700,'Number of Students Unable to Eat Lunch','Queue','Easy','Simulate students in a queue choosing sandwiches in stack order.','students=[1,1,0,0], sandwiches=[0,1,0,1]  Output: 0','1700-number-of-students-unable-to-eat-lunch'],
+[1823,'Find the Winner of the Circular Game','Queue','Medium','Use a circular elimination process to find the last remaining player.','n=5, k=2  Output: 3','1823-find-the-winner-of-the-circular-game'],
+[2073,'Time Needed to Buy Tickets','Queue','Easy','Calculate the time until a person finishes buying tickets in a queue.','tickets=[2,3,2], k=2  Output: 6','2073-time-needed-to-buy-tickets'],
+[225,'Implement Stack using Queues','Queue','Easy','Implement stack operations using one or more queues.','push(1), push(2), top(), pop(), empty()','225-implement-stack-using-queues'],
+[239,'Sliding Window Maximum','Queue','Hard','Find the maximum value in each sliding window using a deque.','nums=[1,3,-1,-3,5,3,6,7], k=3  Output=[3,3,5,5,6,7]','239-sliding-window-maximum'],
+[346,'Moving Average from Data Stream','Queue','Easy','Calculate the moving average of the latest fixed number of values.','windowSize=3; next(1), next(10), next(3), next(5)','346-moving-average-from-data-stream'],
+[622,'Design Circular Queue','Queue','Medium','Implement a fixed-size circular queue with enqueue, dequeue, front and rear.','k=3; enQueue(1), enQueue(2), Front(), Rear()','622-design-circular-queue'],
+[641,'Design Circular Deque','Queue','Medium','Implement a double-ended circular queue with insertions and deletions at both ends.','k=3; insertLast(1), insertFront(2), getRear()','641-design-circular-deque'],
+[649,'Dota2 Senate','Queue','Medium','Simulate senators banning opposing senators until one party remains.','Input: "RDD"  Output: "Dire"','649-dota2-senate'],
+[933,'Number of Recent Calls','Queue','Easy','Count pings in the inclusive time interval [t-3000,t].','ping(1), ping(100), ping(3001), ping(3002)','933-number-of-recent-calls'],
+[950,'Reveal Cards In Increasing Order','Queue','Medium','Reorder a deck so revealing and rotating cards produces ascending order.','deck=[17,13,11,2,3,5,7]  Output=[2,13,3,11,5,17,7]','950-reveal-cards-in-increasing-order'],
+[994,'Rotting Oranges','Queue','Medium','Find the minutes for all reachable fresh oranges to become rotten using multi-source BFS.','grid=[[2,1,1],[1,1,0],[0,1,1]]  Output: 4','994-rotting-oranges'],
+[1091,'Shortest Path in Binary Matrix','Queue','Medium','Find the shortest 8-direction path through open cells in a binary matrix.','grid=[[0,1],[1,0]]  Output: 2','1091-shortest-path-in-binary-matrix'],
+[1161,'Maximum Level Sum of a Binary Tree','Queue','Medium','Find the level of a binary tree with the greatest sum using level-order traversal.','Input: root=[1,7,0,7,-8,null,null]  Output: 2','1161-maximum-level-sum-of-a-binary-tree'],
+[1171,'Remove Zero Sum Consecutive Nodes from Linked List','Queue','Medium','Remove consecutive linked-list segments whose values sum to zero.','Linked list: [1,2,-3,3,1]','1171-remove-zero-sum-consecutive-nodes-from-linked-list'],
+[1438,'Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit','Queue','Medium','Find the longest subarray whose max-min stays within a limit, using monotonic deques.','nums=[8,2,4,7], limit=4  Output: 2','1438-longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit'],
+[1658,'Minimum Operations to Reduce X to Zero','Queue','Medium','Remove values from either array end to sum exactly to x.','nums=[1,1,4,2,3], x=5  Output: 2','1658-minimum-operations-to-reduce-x-to-zero'],
+[1696,'Jump Game VI','Queue','Medium','Maximize score while jumping at most k positions using a monotonic deque.','nums=[1,-1,-2,4,-7,3], k=2  Output: 7','1696-jump-game-vi'],
+[2398,'Maximum Number of Robots Within Budget','Queue','Hard','Find the longest robot window whose max charge time plus running costs fits budget.','chargeTimes=[3,6,1,3,4], runningCosts=[2,1,3,4,5], budget=25','2398-maximum-number-of-robots-within-budget']
+];
+let currentTopic='Stack',currentId=155,currentProblem=null;
+const $=id=>document.getElementById(id), key=id=>'reiyad_code_'+id, solvedKey='reiyad_solved';
+function getSolved(){try{return JSON.parse(localStorage.getItem(solvedKey)||'[]')}catch{return []}}
+function drafts(){return Object.keys(localStorage).filter(k=>k.startsWith('reiyad_code_')).length}
+function home(){hideAll();$('homePage').classList.remove('hide');$('homeNav').classList.add('active');$('listTitle').textContent='';updateHome()}
+function hideAll(){['homePage','listPage','workPage','authPage'].forEach(x=>$(x).classList.add('hide'));document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'))}
+function updateHome(){let s=getSolved();$('totalCount').textContent=problems.length;$('solvedCount').textContent=s.length;$('savedCount').textContent=drafts();$('stackCount').textContent=problems.filter(p=>p[2]==='Stack').length+' problems';$('queueCount').textContent=problems.filter(p=>p[2]==='Queue').length+' problems';let saved=problems.filter(p=>localStorage.getItem(key(p[0])));$('continueList').innerHTML=saved.length?saved.slice(0,6).map(p=>'<div class="problemrow" onclick="openProblem('+p[0]+')"><span class="num">#'+p[0]+'</span><span class="pname">'+p[1]+'</span><span class="topiccol muted tiny">'+p[2]+'</span><span class="solved">Draft saved</span></div>').join(''):'<div class="content muted tiny">No drafts yet. Open a problem and start coding — drafts save automatically.</div>'}
+function showList(topic){currentTopic=topic;hideAll();$('listPage').classList.remove('hide');$('listTitle').textContent=topic==='All'?'All Stack & Queue problems':topic+' problems';$('homeNav').classList.remove('active');renderList()}
+function renderList(){let q=$('search').value.toLowerCase(),d=$('difficulty').value,sf=$('statusFilter').value,sol=getSolved();let arr=problems.filter(p=>(currentTopic==='All'||p[2]===currentTopic)&&p[1].toLowerCase().includes(q)&&(d==='All'||p[3]===d)&&(sf==='All'||(sf==='Solved')===sol.includes(p[0])));$('problemList').innerHTML=arr.length?arr.map(p=>'<div class="problemrow" onclick="openProblem('+p[0]+')"><span class="num">#'+p[0]+'</span><span class="pname">'+p[1]+'</span><span class="difficulty '+p[3].toLowerCase()+'">'+p[3]+'</span><span class="solved">'+(sol.includes(p[0])?'✓ Solved':localStorage.getItem(key(p[0]))?'Draft saved':'')+'</span></div>').join(''):'<div class="content muted">No problems match these filters.</div>'}
+function starter(p){if(p[0]===155)return `#include <bits/stdc++.h>
+using namespace std;
+
+class MinStack {
+public:
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        
+    }
+    
+    void pop() {
+        
+    }
+    
+    int top() {
+        
+    }
+    
+    int getMin() {
+        
+    }
 };
-$('topic').addEventListener('change',()=>{const t=topics[$('topic').value];$('ptitle').textContent=t.title;$('description').textContent=t.desc;$('operations').innerHTML=t.ops.map(x=>'<li>'+x+'</li>').join('');$('sample').textContent=t.input;$('expected').textContent=t.out;$('stdin').value=t.input;document.querySelector('.tag').textContent=t.tag});
-$('font').onchange=()=> $('code').style.fontSize=$('font').value+'px';
-$('reset').onclick=()=>{$('code').value=starter;$('runstate').textContent='Code reset'};
-$('clear').onclick=()=>{$('output').textContent='Output cleared.';$('time').textContent='—';$('memory').textContent='—';$('result').textContent='Ready'};
-$('run').onclick=run;
-async function run(){
- const btn=$('run');btn.disabled=true;$('runstate').textContent='Submitting…';$('result').textContent='Running';$('output').textContent='Sending code to Judge0…';$('time').textContent='—';$('memory').textContent='—';
- try{
-  const base='https://ce.judge0.com';
-  const res=await fetch(base+'/submissions?base64_encoded=false&wait=false',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source_code:$('code').value,language_id:Number($('language').value),stdin:$('stdin').value,cpu_time_limit:5,cpu_extra_time:1,wall_time_limit:10,memory_limit:128000})});
-  if(!res.ok)throw new Error('Compiler service returned HTTP '+res.status+'. Try again later.');
-  const data=await res.json();if(!data.token)throw new Error('No submission token returned.');
-  $('runstate').textContent='Compiling and running…';let result=null;
-  for(let i=0;i<30;i++){await new Promise(r=>setTimeout(r,1000));const p=await fetch(base+'/submissions/'+data.token+'?base64_encoded=false');if(!p.ok)throw new Error('Could not retrieve execution result.');result=await p.json();if(result.status&&result.status.id>2)break;}
-  if(!result||!result.status||result.status.id<=2)throw new Error('Execution is taking too long. Please retry.');
-  const status=result.status.description||'Finished';$('result').textContent=status;$('time').textContent=result.time?result.time+' s':'—';$('memory').textContent=result.memory?result.memory+' KB':'—';
-  const out=result.stdout||'';const err=result.compile_output||result.stderr||'';
-  $('output').textContent=(out?'STDOUT\n'+out:'')+(err?'\n'+(result.compile_output?'COMPILER\n':'STDERR\n')+err:'')||status;
-  const expected=$('stdout').value.trim();if(expected&&out.trim()===expected){$('result').textContent='Accepted';$('result').className='good'}else if(expected){$('result').textContent='Wrong Answer';$('result').className='bad'}else $('result').className='';
-  $('runstate').textContent='Completed';
- }catch(e){$('output').textContent='Unable to run code.\n'+e.message+'\n\nThis may be caused by public API limits, network restrictions, or browser CORS policy.';$('result').textContent='Error';$('result').className='bad';$('runstate').textContent='Failed'}
- finally{btn.disabled=false}
-}
-$('connection').textContent='● Judge0 CE · Online execution';
+
+int main() {
+    MinStack* obj = new MinStack();
+    // Add your test operations here
+    return 0;
+}`;
+return `#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    // Write your solution here
+};
+
+int main() {
+    // Add input and call your function here
+    return 0;
+}`}
+function openProblem(id){currentProblem=problems.find(p=>p[0]===id);if(!currentProblem)return;currentId=id;hideAll();$('workPage').classList.remove('hide');$('workTopic').textContent=currentProblem[2].toUpperCase();$('workTitle').textContent='#'+id+' · '+currentProblem[1];$('workMeta').textContent='LeetCode #'+id+' · '+currentProblem[2];$('descTitle').textContent=currentProblem[1];$('description').textContent=currentProblem[4];$('example').textContent=currentProblem[5];$('workDifficulty').textContent=currentProblem[3];$('workDifficulty').className='difficulty '+currentProblem[3].toLowerCase();$('leetcodeLink').href='https://leetcode.com/problems/'+currentProblem[6]+'/';$('code').value=localStorage.getItem(key(id))??starter(currentProblem);$('stdin').value='';$('output').textContent='Your program output will appear here.';updateSolvedButton();$('saveState').textContent=localStorage.getItem(key(id))?'Draft restored from this browser':'Starter code loaded'}
+function updateSolvedButton(){let yes=getSolved().includes(currentId);$('solvedButton').textContent=yes?'✓ Solved — click to undo':'Mark as solved ✓'}
+function toggleSolved(){let a=getSolved();a=a.includes(currentId)?a.filter(x=>x!==currentId):[...a,currentId];localStorage.setItem(solvedKey,JSON.stringify(a));updateSolvedButton();renderList();updateHome()}
+let saveTimer; $('code').addEventListener('input',()=>{clearTimeout(saveTimer);$('saveState').textContent='Saving…';saveTimer=setTimeout(()=>{localStorage.setItem(key(currentId),$('code').value);$('saveState').textContent='✓ Saved on this device'},250)});
+function resetCode(){if(confirm('Replace your current draft with the starter code?')){$('code').value=starter(currentProblem);localStorage.setItem(key(currentId),$('code').value);$('saveState').textContent='Starter restored'}}
+async function copyCode(){try{await navigator.clipboard.writeText($('code').value);$('saveState').textContent='Copied'}catch{$('saveState').textContent='Clipboard unavailable'}}
+function clearOutput(){$('output').textContent='Output cleared.'}
+async function runCode(){let out=$('output');out.textContent='Submitting to Judge0…';try{let base='https://ce.judge0.com';let r=await fetch(base+'/submissions?base64_encoded=false&wait=false',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source_code:$('code').value,language_id:54,stdin:$('stdin').value,cpu_time_limit:5,memory_limit:128000})});if(!r.ok)throw Error('HTTP '+r.status);let j=await r.json();let result;for(let i=0;i<30;i++){await new Promise(x=>setTimeout(x,1000));let z=await fetch(base+'/submissions/'+j.token+'?base64_encoded=false');result=await z.json();if(result.status.id>2)break}out.textContent=(result.stdout||'')+(result.compile_output?'\nCompiler:\n'+result.compile_output:'')+(result.stderr?'\nError:\n'+result.stderr:'')||result.status.description;out.textContent+='\n\nStatus: '+result.status.description+' | Time: '+(result.time||'—')+' s | Memory: '+(result.memory||'—')+' KB'}catch(e){out.textContent='Execution failed: '+e.message+'\nThe public compiler may be unavailable or rate-limited.'}}
+function showAuth(){hideAll();$('authPage').classList.remove('hide');let p=JSON.parse(localStorage.getItem('reiyad_profile')||'null');$('displayName').value=p?.name||'';$('displayEmail').value=p?.email||'';$('authTitle').textContent=p?'Your ReiyAd profile':'Welcome to ReiyAd';$('accountNav').classList.add('active')}
+function saveProfile(){let name=$('displayName').value.trim();if(!name){alert('Please enter a display name.');return}let p={name,email:$('displayEmail').value.trim(),id:'RY-'+Math.random().toString(36).slice(2,8).toUpperCase()};localStorage.setItem('reiyad_profile',JSON.stringify(p));$('accountNav').textContent=name.split(' ')[0];alert('Local profile created. Your ID is '+p.id);home()}
+function logout(){localStorage.removeItem('reiyad_profile');$('accountNav').textContent='Login';home()}
+(function init(){let p=JSON.parse(localStorage.getItem('reiyad_profile')||'null');if(p)$('accountNav').textContent=p.name.split(' ')[0];home()})();
 </script></body></html>
