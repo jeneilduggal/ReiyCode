@@ -51,6 +51,41 @@ body[data-theme="ivory"]{--editor-bg:#f7f3ea;--editor-fg:#28313b;--editor-gutter
 .cm-string,.cm-string-2{color:var(--grad-b)!important}
 .cm-number,.cm-atom{color:color-mix(in srgb,var(--grad-a) 70%,var(--yellow))!important}
 .cm-comment{color:var(--muted)!important}
+
+/* Theme-aware editor: independent palette tokens are driven by the selected site theme. */
+body{--editor-bg:#0b1220;--editor-fg:#e3edff;--editor-gutter:#111c2e;--editor-border:var(--line);--editor-selection:#2b4b70;--syntax-key:var(--grad-a);--syntax-string:var(--grad-b);--syntax-number:var(--yellow);--syntax-comment:var(--muted)}
+body[data-theme="dark"]{--editor-bg:#0b1220;--editor-fg:#dce8fa;--editor-gutter:#111c2e;--editor-selection:#294a70;--syntax-key:#8bb4ff;--syntax-string:#64e0b5;--syntax-number:#f4d37b}
+body[data-theme="midnight"]{--editor-bg:#07090c;--editor-fg:#edf0f7;--editor-gutter:#101216;--editor-selection:#343b4b;--syntax-key:#a7c2ff;--syntax-string:#82e8c5;--syntax-number:#ffda8a}
+body[data-theme="forest"]{--editor-bg:#0c1b14;--editor-fg:#e4f4e9;--editor-gutter:#10251b;--editor-selection:#28533e;--syntax-key:#a1d59c;--syntax-string:#7ee0a9;--syntax-number:#e9cf79}
+body[data-theme="ocean"]{--editor-bg:#091b29;--editor-fg:#e2f4ff;--editor-gutter:#0d2435;--editor-selection:#245477;--syntax-key:#8dcaff;--syntax-string:#62e0c2;--syntax-number:#f4cf83}
+body[data-theme="ivory"]{--editor-bg:#f7f3ea;--editor-fg:#28313b;--editor-gutter:#eee8dd;--editor-selection:#d3dfef;--syntax-key:#476b9d;--syntax-string:#267b5d;--syntax-number:#986b22;--syntax-comment:#77766f}
+.CodeMirror,.CodeMirror-scroll,.CodeMirror-sizer,.CodeMirror-lines{background:var(--editor-bg)!important;color:var(--editor-fg)!important}
+.CodeMirror{height:460px!important;font:13px/1.65 'DM Mono',monospace!important}
+.CodeMirror-gutters,.CodeMirror-linenumber{background:var(--editor-gutter)!important;color:var(--syntax-comment)!important;border-color:var(--editor-border)!important}
+.CodeMirror-cursor{border-left:2px solid var(--editor-fg)!important}
+.CodeMirror-selected,.CodeMirror-focused .CodeMirror-selected,.CodeMirror-line::selection,.CodeMirror-line>span::selection,.CodeMirror-line>span>span::selection{background:var(--editor-selection)!important}
+.cm-keyword,.cm-def,.cm-variable-3,.cm-builtin,.cm-operator,.cm-meta{color:var(--syntax-key)!important}
+.cm-string,.cm-string-2,.cm-quote{color:var(--syntax-string)!important}
+.cm-number,.cm-atom{color:var(--syntax-number)!important}
+.cm-comment{color:var(--syntax-comment)!important}
+.cm-variable,.cm-variable-2,.cm-property,.cm-qualifier{color:var(--editor-fg)!important}
+
+.reiybot-launch{position:fixed;right:18px;bottom:22px;z-index:70;border:0;border-radius:999px;background:linear-gradient(120deg,var(--grad-a),var(--grad-b));color:#071323;font-weight:800;padding:13px 17px;box-shadow:0 8px 30px #0005}
+.reiybot-panel{position:fixed;z-index:71;right:0;top:0;height:100dvh;width:min(430px,96vw);background:var(--panel);border-left:1px solid var(--line);box-shadow:-20px 0 50px #0004;transform:translateX(105%);transition:transform .22s;display:flex;flex-direction:column}
+.reiybot-panel.open{transform:translateX(0)}
+.reiybot-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.reiybot-head h3{margin:0;font-size:17px}.reiybot-controls{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;border-bottom:1px solid var(--line)}
+.reiybot-controls input,.reiybot-controls select,.reiybot-plugins input{min-width:0;width:100%;padding:9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--txt);font-size:12px}
+.reiybot-controls .wide{grid-column:1/-1}
+.reiybot-log{padding:14px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:10px}
+.reiybot-msg{white-space:pre-wrap;line-height:1.55;font-size:13px;padding:11px 12px;border-radius:12px;max-width:95%}
+.reiybot-msg.bot{background:var(--panel2);align-self:flex-start}.reiybot-msg.user{background:linear-gradient(120deg,var(--grad-a),var(--grad-b));color:#081525;align-self:flex-end}
+.reiybot-compose{padding:12px;border-top:1px solid var(--line);display:flex;gap:8px}
+.reiybot-compose textarea{resize:vertical;min-height:54px;max-height:130px;flex:1;min-width:0;padding:10px;border-radius:9px;background:var(--bg);border:1px solid var(--line);color:var(--txt)}
+.reiybot-plugins{border-top:1px solid var(--line);padding:10px 12px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.reiybot-plugins button{border:1px solid var(--line);background:var(--panel2);color:var(--txt);border-radius:8px;padding:7px 9px;font-size:11px}
+.reiybot-plugins input{width:120px}
+@media(max-width:560px){.reiybot-launch{right:12px;bottom:12px}.reiybot-panel{width:100vw}}
 </style></head><body>
 <div id="drawerShade" class="drawer-shade" onclick="closeDrawer()"></div><aside id="sideDrawer" class="drawer"><div class="drawer-top"><b>∞ ReiyAd</b><button style="width:auto" onclick="closeDrawer()">✕</button></div><div class="drawer-label">NAVIGATION</div><button onclick="home();closeDrawer()">⌂ Home</button><button onclick="showList('All');closeDrawer()">All Problems</button><div class="drawer-label">TOPICS</div><button onclick="showList('Stack');closeDrawer()">Stack</button><button onclick="showList('Queue');closeDrawer()">Queue</button><button onclick="showList('Patterns');closeDrawer()">Patterns</button><button onclick="showA2Z();closeDrawer()">Striver A2Z Sheet</button><div class="drawer-label">ACCOUNT</div><button onclick="showAuth();closeDrawer()">Profile / Login</button><div class="drawer-label">THEMES</div><button onclick="setTheme('dark')">Obsidian</button><button onclick="setTheme('midnight')">True Black</button><button onclick="setTheme('forest')">Forest</button><button onclick="setTheme('ocean')">Ocean</button><button onclick="setTheme('ivory')">Ivory / Beige</button></aside><header class="top"><button class="hamburger" aria-label="Open navigation" onclick="openDrawer()">☰</button><div class="brand" onclick="home()"><div class="mark"><svg viewBox="0 0 60 36" fill="none"><path d="M5 18C13 2 23 2 30 18C37 34 47 34 55 18C47 2 37 2 30 18C23 34 13 34 5 18Z" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div>ReiyAd<small>DSA PRACTICE ARENA</small></div></div><nav class="nav"><button id="homeNav" class="active" onclick="home()">Home</button><select id="themeSelect" class="theme-select" onchange="setTheme(this.value)"><option value="dark">Obsidian</option><option value="midnight">True Black</option><option value="forest">Forest</option><option value="ocean">Ocean</option><option value="ivory">Ivory beige</option></select></nav></header>
 <main class="wrap">
@@ -221,7 +256,7 @@ const originalHideAll=hideAll;
 hideAll=function(){originalHideAll();$('a2zPage').classList.add('hide')};
 function showA2Z(){hideAll();$('a2zPage').classList.remove('hide')}
 function complexityFor(p){if(p[2]==='Patterns')return 'Time: O(n²) · Auxiliary space: O(1)';if([84,85,239,739,907,1438,1696,2398].includes(p[0]))return 'Typical target: O(n) or O(n log n) time · O(n) space';if([155,232,225,622,641,895,1670].includes(p[0]))return 'Design target: O(1) per operation · O(n) total storage';if(p[3]==='Easy')return 'Typical target: O(n) time · O(n) auxiliary space';return 'Target depends on approach: aim for O(n) or O(n log n) time where possible.'}
-function setTheme(t){document.body.dataset.theme=t;localStorage.setItem('reiyad_theme',t);$('themeSelect').value=t;if(window.reiyadEditor)reiyadEditor.setOption('theme',t==='ivory'?'eclipse':'material-darker')}
+function setTheme(t){document.body.dataset.theme=t;localStorage.setItem('reiyad_theme',t);$('themeSelect').value=t;if(window.reiyadEditor){reiyadEditor.setOption('theme','default');reiyadEditor.refresh()}}
 let testCases=[];
 function addTestCase(input='',expected=''){testCases.push({input,expected});renderTestCases();localStorage.setItem('reiyad_tests_'+currentId,JSON.stringify(testCases))}
 function removeTestCase(i){testCases.splice(i,1);renderTestCases();localStorage.setItem('reiyad_tests_'+currentId,JSON.stringify(testCases))}
@@ -240,7 +275,7 @@ resetCode=function(){if(confirm('Replace your current draft with the starter cod
 const oldCopyCode=copyCode;
 copyCode=async function(){try{await navigator.clipboard.writeText(codeValue());$('saveState').textContent='Copied'}catch{$('saveState').textContent='Clipboard unavailable'}};
 const oldInit=window.onload;
-window.addEventListener('load',()=>{let theme=localStorage.getItem('reiyad_theme')||'dark';setTheme(theme);if(window.CodeMirror){window.reiyadEditor=CodeMirror.fromTextArea($('code'),{mode:'text/x-c++src',theme:theme==='ivory'?'eclipse':'material-darker',lineNumbers:true,matchBrackets:true,indentUnit:4,tabSize:4});reiyadEditor.on('change',()=>{localStorage.setItem(key(currentId),reiyadEditor.getValue());localStorage.setItem('reiyad_tests_'+currentId,JSON.stringify(testCases));$('saveState').textContent='✓ Autosaved';if(typeof syncReiyadCloud==='function')syncReiyadCloud()})}});
+window.addEventListener('load',()=>{let theme=localStorage.getItem('reiyad_theme')||'dark';setTheme(theme);if(window.CodeMirror){window.reiyadEditor=CodeMirror.fromTextArea($('code'),{mode:'text/x-c++src',theme:'default',lineNumbers:true,matchBrackets:true,indentUnit:4,tabSize:4});reiyadEditor.on('change',()=>{localStorage.setItem(key(currentId),reiyadEditor.getValue());localStorage.setItem('reiyad_tests_'+currentId,JSON.stringify(testCases));$('saveState').textContent='✓ Autosaved';if(typeof syncReiyadCloud==='function')syncReiyadCloud()})}});
 </script>
 <script>
 let reiyadAuth=null,reiyadDb=null,reiyadUser=null;
@@ -280,4 +315,17 @@ function runOne(input){return judgeRun(input)}
 async function judgeRun(input){let base='https://ce.judge0.com';let r=await fetch(base+'/submissions?base64_encoded=false&wait=false',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({source_code:codeValue(),language_id:54,stdin:input,cpu_time_limit:5,memory_limit:128000})});if(!r.ok)throw Error('Judge0 HTTP '+r.status);let j=await r.json();if(!j.token)throw Error(j.message||'No Judge0 submission token');let v;for(let i=0;i<75;i++){await new Promise(x=>setTimeout(x,800));let q=await fetch(base+'/submissions/'+j.token+'?base64_encoded=false');if(!q.ok)throw Error('Could not fetch judge result');v=await q.json();if(!v.status)throw Error('Invalid Judge0 result');if(v.status.id!==1&&v.status.id!==2)break}if(!v||v.status.id===1||v.status.id===2)throw Error('Judge0 timed out. Submission is NOT accepted.');return v}
 submitCode=async function(){if(!testCases.length||testCases.every(t=>!t.input.trim()&&!t.expected.trim())){$('testSummary').textContent='Enter at least one non-empty example test case.';return}let passed=0,lines=[],judgeError=false;$('statusMetric').textContent='Testing';$('output').textContent='Running test cases…';for(let i=0;i<testCases.length;i++){try{let r=await judgeRun(testCases[i].input),actual=(r.stdout||'').replace(/\r\n/g,'\n').trim(),expected=testCases[i].expected.replace(/\r\n/g,'\n').trim(),ok=r.status.id===3&&actual===expected&&!r.compile_output;if(ok)passed++;if(r.status.id!==3)judgeError=true;lines.push('Test '+(i+1)+': '+(ok?'PASSED':'FAILED')+'\nJudge status: '+r.status.description+'\nExpected: '+(expected||'(empty)')+'\nActual: '+(actual||'(empty)')+(r.compile_output?'\nCompiler:\n'+r.compile_output:'')+(r.stderr?'\nError:\n'+r.stderr:''));if(i===0)setMetrics(r)}catch(e){judgeError=true;lines.push('Test '+(i+1)+': ERROR — '+e.message)}}$('testSummary').textContent=passed+' / '+testCases.length+' test cases passed';$('testSummary').className='tiny '+(passed===testCases.length&&!judgeError?'test-summary-good':'test-summary-bad');$('output').textContent=lines.join('\n\n');if(passed===testCases.length&&!judgeError){$('statusMetric').textContent='Accepted';let a=getSolved();if(!a.includes(currentId)){a.push(currentId);localStorage.setItem(solvedKey,JSON.stringify(a));updateSolvedButton();updateHome()}}else $('statusMetric').textContent=judgeError?'Judge Error — NOT Accepted':'Wrong Answer'};
 window.addEventListener('load',()=>{setTheme(localStorage.getItem('reiyad_theme')||'dark');setAccent(localStorage.getItem('reiyad_accent')||'155')});
-</script></body></html>
+</script>
+<button class="reiybot-launch" id="reiybotLaunch" onclick="toggleReiybot(true)">✦ Reiybot</button>
+<aside class="reiybot-panel" id="reiybotPanel" aria-label="Reiybot coding assistant">
+<div class="reiybot-head"><div><h3>✦ Reiybot</h3><span class="tiny muted">Your coding companion</span></div><button class="btn" onclick="toggleReiybot(false)">Close</button></div>
+<div class="reiybot-controls">
+<select id="reiybotProvider" onchange="providerChanged()"><option value="openai">ChatGPT</option><option value="anthropic">Claude</option><option value="gemini">Gemini</option></select>
+<input id="reiybotModel" placeholder="Model name" value="gpt-4o-mini" aria-label="Model name"/>
+<input class="wide" id="reiybotKey" type="password" placeholder="Paste provider API key (not your Google login)" autocomplete="off"/>
+<button class="btn wide" onclick="saveReiybotKey()">Save API key for this browser</button>
+</div>
+<div class="reiybot-log" id="reiybotLog"></div>
+<div class="reiybot-compose"><textarea id="reiybotInput" placeholder="Ask about the problem, code, hints…" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendReiybot()}"></textarea><button class="btn primary" onclick="sendReiybot()">Send</button></div>
+<div class="reiybot-plugins"><b class="tiny">Coding plugins:</b><input id="reiybotPluginName" placeholder="Plugin name"/><input id="reiybotPluginUrl" placeholder="Plugin URL"/><button onclick="addReiybotPlugin()">Add</button><span id="reiybotPluginList"></span></div>
+</aside></body></html>
