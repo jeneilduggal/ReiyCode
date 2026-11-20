@@ -171,10 +171,11 @@ window.reiyadEditorMode=()=>mode;
 window.reiyadBuildSubmissionSource=(id,source)=>mode==="logic"?logicWrapper(id,source):source;
 
 const priorRunCode=window.runCode;
-if(typeof priorRunCode==="function")window.runCode=async function(){const box=document.querySelector("#workPage .testbox");if(box)box.style.display="";return priorRunCode.apply(this,arguments)};
+if(typeof priorRunCode==="function")window.runCode=async function(){const box=document.querySelector("#workPage .testbox");if(box)box.style.display="";if(typeof renderTestCases==="function")renderTestCases();return priorRunCode.apply(this,arguments)};
 const originalSubmit=window.submitCode;
 if(typeof originalSubmit==="function"){
  window.submitCode=async function(){
+  const box=document.querySelector("#workPage .testbox");if(box)box.style.display="";if(typeof renderTestCases==="function")renderTestCases();
   const extra=(window.hiddenTestCases&&window.hiddenTestCases[currentId])||[];
   const start=typeof testCases!=="undefined"?testCases.length:0;
   if(typeof testCases!=="undefined")testCases.push(...extra.map(([input,expected])=>({input,expected})));
