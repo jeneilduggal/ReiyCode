@@ -24,16 +24,13 @@ async function request(url,options,attempt=0){
 async function runOne(job){
  if(!job.source)throw new Error("Missing reference source");
  const payload={method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({source_code:Buffer.from(job.source,"utf8").toString("base64"),language_id:54,stdin:Buffer.from(job.input,"utf8").toString("base64"),cpu_time_limit:5,memory_limit:128000})};
- let created;
- try{created=await request(base+"/submissions?base64_encoded=true&wait=true",payload)}catch(error){created=await request(base+"/submissions?base64_encoded=true&wait=false",payload)}
- let result=created;
- if(!result.status||result.status.id<=2){
-  if(!created.token)throw new Error("Judge0 did not return a completed result or submission token");
-  for(let i=0;i<40;i++){
-   await sleep(800);
-   result=await request(base+"/submissions/"+created.token+"?base64_encoded=true",{method:"GET"});
-   if(result.status&&result.status.id>2)break;
-  }
+ const created=await request(base+"/submissions?base64_encoded=true&wait=false",payload);
+ if(!created.token)throw new Error("Judge0 did not return a submission token");
+ let result;
+ for(let i=0;i<40;i++){
+  await sleep(800);
+  result=await request(base+"/submissions/"+created.token+"?base64_encoded=true",{method:"GET"});
+  if(result.status&&result.status.id>2)break;
  }
  if(!result?.status||result.status.id!==3)throw new Error("Judge status: "+(result?.status?.description||"timeout")+" "+(result?.compile_output?Buffer.from(result.compile_output,"base64").toString("utf8"):"")+(result?.stderr?Buffer.from(result.stderr,"base64").toString("utf8"):""));
  const actual=(result.stdout?Buffer.from(result.stdout,"base64").toString("utf8"):"").trim(),expected=String(job.expected).trim();
