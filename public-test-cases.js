@@ -30,7 +30,10 @@
  96027:[["4\n1 2 3 4","24 12 8 6"],["5\n-1 1 0 -3 3","0 0 9 0 0"],["2\n3 5","5 3"]],
  96028:[["anagram\nnagaram","true"],["rat\ncar","false"],["a\na","true"]],
  96029:[["6\n-1 0 3 5 9 12\n9","4"],["6\n-1 0 3 5 9 12\n2","-1"],["1\n5\n5","0"]],
- 96030:[["9\n-2 1 -3 4 -1 2 1 -5 4","6"],["1\n1","1"],["5\n5 4 -1 7 8","23"]]
+ 96030:[["9\n-2 1 -3 4 -1 2 1 -5 4","6"],["1\n1","1"],["5\n5 4 -1 7 8","23"]],
+
+ 96031:[["HP\n500","Device Constructor\nComputer Constructor\nLaptop Constructor\nDevice ID: 500\nLaptop Destructor\nComputer Destructor\nDevice Destructor"],["Lenovo\n99999","Device Constructor\nComputer Constructor\nLaptop Constructor\nDevice ID: 99999\nLaptop Destructor\nComputer Destructor\nDevice Destructor"],["Acer\n1","Device Constructor\nComputer Constructor\nLaptop Constructor\nDevice ID: 1\nLaptop Destructor\nComputer Destructor\nDevice Destructor"]],
+ 96032:[["Neha\n10\n1000","Name: Neha\nID: 10\nBasic Salary: 1000.00\nFinal Salary: 1300.00"],["Aarav\n99999\n25000","Name: Aarav\nID: 99999\nBasic Salary: 25000.00\nFinal Salary: 32500.00"],["Zoya\n1\n150000","Name: Zoya\nID: 1\nBasic Salary: 150000.00\nFinal Salary: 195000.00"]]
  };
  for(const [id,tests] of Object.entries(cases))sampleTests[id]=tests;
  window.reiyadPublicTestCounts=Object.fromEntries(Object.entries(cases).map(([id,t])=>[id,t.length]));
