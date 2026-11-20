@@ -159,7 +159,7 @@ window.submitCode=async function(){
  return oldSubmit();
 };
 const code=$("code");
-if(code)code.addEventListener("input",()=>{if(!switching&&currentId)saveModeBuffer()});
+if(code)code.addEventListener("input",()=>{if(!switching&&currentId)saveModeBuffer()});\nif(window.reiyadEditor)reiyadEditor.on("change",()=>{if(!switching&&currentId)saveModeBuffer()});\nwindow.addEventListener("load",()=>{if(window.reiyadEditor)reiyadEditor.on("change",()=>{if(!switching&&currentId)saveModeBuffer()})});
 window.addEventListener("load",()=>{
  addModeControls();
  if(currentProblem){loadMode("logic")}
