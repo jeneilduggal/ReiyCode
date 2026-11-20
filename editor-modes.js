@@ -130,6 +130,36 @@ function formatStatement(raw){
  flush();
  return '<div class="statement">'+blocks.join("")+'</div>';
 }
+
+function prettyCpp(source){
+ const input=String(source||"").replace(/\\r/g,"");
+ let out="",line="",indent=0,paren=0,bracket=0,inString="",escape=false;
+ const pad=()=> "    ".repeat(Math.max(0,indent));
+ const flush=()=>{const value=line.trim();if(value){out+=pad()+value+"\\n";line=""}};
+ for(let i=0;i<input.length;i++){
+  const ch=input[i],next=input[i+1];
+  if(inString){line+=ch;if(escape)escape=false;else if(ch==="\\\\")escape=true;else if(ch===inString)inString="";continue}
+  if(ch==='"'||ch==="'"){inString=ch;line+=ch;continue}
+  if(ch==="(")paren++;if(ch===")")paren=Math.max(0,paren-1);
+  if(ch==="[")bracket++;if(ch==="]")bracket=Math.max(0,bracket-1);
+  if(ch==="{"){line=line.trimEnd();if(line&&!line.endsWith(" "))line+=" ";line+="{";flush();indent++;continue}
+  if(ch==="}"){
+   flush();indent=Math.max(0,indent-1);line="}";
+   let j=i+1;while(j<input.length&&/\\s/.test(input[j]))j++;
+   if(input[j]===";"||input[j]===","){line+=input[j];i=j;flush()}
+   else if(input.slice(j,j+4)==="else"){line+=" else";i=j+3;flush()}
+   else flush();
+   continue;
+  }
+  if(ch===";"&&paren===0){line=line.trimEnd()+";";flush();continue}
+  if(ch==="\\n"){if(line.trim())flush();continue}
+  if(/\\s/.test(ch)){if(line&&!line.endsWith(" "))line+=" ";continue}
+  if(ch==="," ){line=line.trimEnd()+", ";continue}
+  line+=ch;
+ }
+ flush();
+ return out.trim();
+}
 function renderProblemDescription(){
  const desc=$("description");if(!desc||!currentProblem)return;
  let target=desc;
@@ -157,7 +187,7 @@ window.openProblem=function(id){
    const wrap=document.createElement("div");wrap.className="content";
    const h=document.createElement("h2");h.textContent="Complete C++17 reference solution";
    const p=document.createElement("p");p.className="muted";p.textContent="Reference code is separate from your editor draft.";
-   const pre=document.createElement("pre");pre.className="solution-code";pre.textContent=source;
+   const pre=document.createElement("pre");pre.className="solution-code";pre.textContent=prettyCpp(source);
    wrap.append(h,p,pre);pane.replaceChildren(wrap);
  }
 };
