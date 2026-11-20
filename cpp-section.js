@@ -1,0 +1,69 @@
+/* C++ practice section for ReiyCode */
+(function(){
+const cppQuestions=[[96001,"Core C++ Foundations — Number Report","Easy","Read n integers into an array. Print their sum, minimum, maximum, number of even values, and arithmetic mean rounded to exactly two decimal places. Use appropriate data types and control structures. This checks variables, constants, input/output, operators, precedence, type conversion, loops, conditions and one-dimensional arrays.","Input:\n5\n2 7 4 9 6\nOutput:\nSum: 28\nMin: 2\nMax: 9\nEven: 3\nAverage: 5.60","Core C++ Basics"],[96002,"Strings — Reverse and Palindrome Check","Easy","Read one line of text (it may contain spaces). Print the reversed string and whether it is a palindrome after ignoring spaces and letter case. Use standard string operations and write a separate function for the palindrome check.","Input:\nNever odd or even\nOutput:\nReversed: neve ro ddo reveN\nPalindrome: Yes","Strings & Arrays"],[96003,"Functions, Recursion & Storage Duration","Easy","Write a recursive factorial function for 0 <= n <= 12. Also write a function that uses a static local variable to count how many times it has been called. Call that function three times. Print the factorial and the final call count. Keep the function declaration, definition and main separate.","Input:\n5\nOutput:\nFactorial: 120\nCall count: 3","Functions, Recursion & Storage Classes"],[96004,"2D Arrays — Matrix Analysis","Easy","Read the number of rows and columns, followed by a matrix. Print the sum of each row and then print the transpose. Use a two-dimensional array and nested loops. Assume rows and columns are at most 20.","Input:\n2 3\n1 2 3\n4 5 6\nOutput:\nRow sums: 6 15\nTranspose:\n1 4\n2 5\n3 6","Arrays & Nested Loops"],[96005,"Pointers & Dynamic Array Allocation","Easy","Read n and n integers. Allocate the array dynamically using new, traverse it using pointer arithmetic (not arr[i]), and pass the pointer to a function that calculates the sum. Print the sum and release the memory using delete[].","Input:\n4\n10 20 30 40\nOutput:\nSum: 100","Pointers & Dynamic Memory"],[96006,"Classes, Objects, Constructors & Destructors","Easy","Create a Student class with private roll number and marks. Provide a default constructor and a parameterized constructor, a member function to display the result, and a destructor. Create one object using each constructor. The destructor should not print anything; use this task to practise object lifetime and constructor/destructor order.","Input:\n101 86\nOutput:\nRoll: 0, Marks: 0\nRoll: 101, Marks: 86","OOP Fundamentals"],[96007,"Copy Constructor — Deep Copy vs Shallow Copy","Medium","Create a class that owns a dynamically allocated integer. Implement a deep-copy copy constructor. Create an object, copy it, change the value through the original object, and print both values. The copied object must remain unchanged. Briefly verify that the two objects own different memory addresses.","Input:\n25 99\nOutput:\nOriginal: 99\nCopy: 25","Constructors & Copy Semantics"],[96008,"Function Overloading & Type Conversion","Medium","Create overloaded functions named area: one calculates the area of a square from an integer side, and another calculates the area of a circle from a double radius. Read both values and print both areas. Demonstrate an explicit conversion where needed and avoid unintended integer division.","Input:\n4 2.5\nOutput:\nSquare: 16\nCircle: 19.63","Compile-time Polymorphism & Type Conversion"],[96009,"Operator Overloading & Friend Functions","Medium","Create a Complex class with real and imaginary parts. Overload the binary + operator to add two complex numbers. Also overload the stream insertion operator << using a friend function so an object can be printed as a+bi. Handle negative imaginary parts cleanly.","Input:\n2 3\n4 -5\nOutput:\nSum: 6-2i","Operator & Friend Functions"],[96010,"Inheritance — Modes and Constructor Order","Medium","Create a base class Person and derived classes Student and TeachingAssistant. Use multilevel or multiple inheritance to represent the teaching assistant. Demonstrate public/protected access appropriately, pass values through constructors, and print the constructor execution order followed by the final object's details. Do not access private base members directly.","Input:\nAsha 21 CS\nOutput:\nPerson constructor\nStudent constructor\nTeachingAssistant constructor\nName: Asha\nAge: 21\nDepartment: CS","Inheritance & Access Modes"],[96011,"Diamond Problem — Virtual Base Class","Hard","Build a diamond hierarchy: Person is the common base; Student and Employee inherit from Person; TeachingAssistant inherits from both Student and Employee. Use virtual inheritance so TeachingAssistant contains only one Person subobject. Initialise the virtual base from the most-derived class and demonstrate the constructor order.","Input:\nRiya 20 45000\nOutput:\nPerson constructor\nStudent constructor\nEmployee constructor\nTeachingAssistant constructor\nName: Riya\nAge: 20\nSalary: 45000","Diamond Inheritance (Standalone)"],[96012,"Runtime Polymorphism — Virtual & Abstract Classes","Medium","Create an abstract Shape class with a pure virtual area() function and a virtual destructor. Derive Circle and Rectangle. Store derived objects through base-class pointers and calculate their areas using runtime polymorphism. Print each area to two decimal places.","Input:\n2\nC 2\nR 3 4\nOutput:\n12.57\n12.00","Runtime Polymorphism & Abstract Classes"],[96013,"Dynamic 2D Memory — Matrix Transpose","Medium","Read rows and columns, dynamically allocate a matrix using int**, fill it, and print its transpose. Release every allocated row and then the row-pointer array. Use a helper function that accepts the dynamically allocated matrix. This checks pointer-to-pointer use and correct new/delete pairing.","Input:\n2 3\n1 2 3\n4 5 6\nOutput:\n1 4\n2 5\n3 6","Dynamic 2D Memory"],[96014,"STL — Containers, Iterators, Algorithms & Functors","Medium","Read n integers into a vector. Sort them in ascending order, remove duplicates, and print the unique values. Then use an iterator to print the values, use an STL algorithm to check whether a target exists, and use a custom functor to sort a copy in descending order. Do not implement sorting manually.","Input:\n7\n4 2 4 1 3 2 5\n3\nOutput:\nAscending: 1 2 3 4 5\nTarget: Found\nDescending: 5 4 3 2 1","STL (Standalone)"],[96015,"Templates — Function Template & Class Template","Hard","Write a function template maximumValue that returns the larger of two values. Then write a class template Pair that stores two values and displays them. Demonstrate both templates with integers and doubles. Avoid writing separate overloaded functions for each data type.","Input:\n10 25\n2.5 1.8\nOutput:\nMax int: 25\nMax double: 2.5\nPair: 10, 25","Templates & Generic Programming (Standalone)"],[96016,"Text File Handling — Read, Write & Append","Medium","Write a program that writes n integers to a text file named numbers.txt, appends one additional integer, then reopens the file using ifstream and prints the sum of all stored numbers. Check that each file opens successfully and close streams when finished. The input supplies n, the n values, and the appended value.","Input:\n3\n10 20 30\n5\nOutput:\nFile sum: 65","File Handling (Standalone)"],[96017,"Exception Handling — Safe Calculator","Medium","Create a calculator that reads two numbers and an operator (+, -, *, /). Use try, throw and catch to handle division by zero and an invalid operator. Print the calculation result for valid input and a clear error message for invalid input. Do not allow the program to continue with an invalid result.","Input:\n10 0 /\nOutput:\nError: Division by zero","Exception Handling (Standalone)"],[96018,"Binary File Records & Command-Line Arguments","Hard","Create a Student record structure and write multiple records to a binary file using ofstream with ios::binary. Reopen the file using ifstream with ios::binary, read the records back, and print them. Use argc/argv to accept an optional filename; if no filename is supplied, use students.dat. Check file-open failures and explain why binary files should be read and written with matching record layouts.","Input:\n2\n101 Asha 86\n102 Dev 91\nOutput:\n101 Asha 86\n102 Dev 91","Binary Files & Command-Line Arguments (Standalone)"]];
+for(const q of cppQuestions) problems.push([q[0],q[1],"CPP",q[2],q[3],q[4],"",q[5]]);
+const oldStarter=starter;
+const cppMain="#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    return 0;\n}";
+starter=function(p){return p && p[2]==="CPP" ? cppMain : oldStarter(p)};
+const cppSamples={
+96001:[["5\n2 7 4 9 6","Sum: 28\nMin: 2\nMax: 9\nEven: 3\nAverage: 5.60"]],
+96002:[["Never odd or even","Reversed: neve ro ddo reveN\nPalindrome: Yes"]],
+96003:[["5","Factorial: 120\nCall count: 3"]],
+96004:[["2 3\n1 2 3\n4 5 6","Row sums: 6 15\nTranspose:\n1 4\n2 5\n3 6"]],
+96005:[["4\n10 20 30 40","Sum: 100"]],
+96006:[["101 86","Roll: 0, Marks: 0\nRoll: 101, Marks: 86"]],
+96007:[["25 99","Original: 99\nCopy: 25"]],
+96008:[["4 2.5","Square: 16\nCircle: 19.63"]],
+96009:[["2 3\n4 -5","Sum: 6-2i"]],
+96010:[["Asha 21 CS","Person constructor\nStudent constructor\nTeachingAssistant constructor\nName: Asha\nAge: 21\nDepartment: CS"]],
+96011:[["Riya 20 45000","Person constructor\nStudent constructor\nEmployee constructor\nTeachingAssistant constructor\nName: Riya\nAge: 20\nSalary: 45000"]],
+96012:[["2\nC 2\nR 3 4","12.57\n12.00"]],
+96013:[["2 3\n1 2 3\n4 5 6","1 4\n2 5\n3 6"]],
+96014:[["7\n4 2 4 1 3 2 5\n3","Ascending: 1 2 3 4 5\nTarget: Found\nDescending: 5 4 3 2 1"]],
+96015:[["10 25\n2.5 1.8","Max int: 25\nMax double: 2.5\nPair: 10, 25"]],
+96016:[["3\n10 20 30\n5","File sum: 65"]],
+96017:[["10 0 /","Error: Division by zero"]],
+96018:[["2\n101 Asha 86\n102 Dev 91","101 Asha 86\n102 Dev 91"]]
+};
+Object.assign(sampleTests,cppSamples);
+const toolbar=document.querySelector("#listPage .toolbar");
+if(toolbar){
+const topic=document.createElement("select");
+topic.className="field";topic.id="cppTopicFilter";topic.innerHTML='<option value="All">All CPP topics</option>'+[...new Set(cppQuestions.map(q=>q[5]))].map(x=>'<option>'+x+'</option>').join("");
+topic.onchange=()=>renderList();
+toolbar.insertBefore(topic,toolbar.children[2]||null);
+}
+const oldRenderList=renderList;
+renderList=function(){
+if(currentTopic!=="CPP"){oldRenderList();return}
+const q=$("search").value.toLowerCase(),d=$("difficulty").value,sf=$("statusFilter").value,tf=$("cppTopicFilter")?.value||"All",sol=getSolved();
+const arr=problems.filter(p=>p[2]==="CPP"&&p[1].toLowerCase().includes(q)&&(d==="All"||p[3]===d)&&(tf==="All"||p[7]===tf)&&(sf==="All"||(sf==="Solved")===sol.includes(p[0])));
+$("problemList").innerHTML=arr.length?arr.map(p=>'<div class="problemrow cpp-problemrow" onclick="openProblem('+p[0]+')"><span class="num">#'+p[0]+'</span><span class="pname">'+p[1]+'<small class="cpp-group">'+p[7]+'</small></span><span class="difficulty '+p[3].toLowerCase()+'">'+p[3]+'</span><span class="solved">'+(sol.includes(p[0])?"✓ Solved":localStorage.getItem(key(p[0]))?"Draft saved":"")+'</span></div>').join(""):'<div class="content muted">No C++ questions match these filters.</div>';
+};
+const oldShowList=showList;
+showList=function(topic){oldShowList(topic);if(topic==="CPP"){$("listTitle").textContent="C++ · Complete Practice Path";$("cppTopicFilter").style.display="";}else if($("cppTopicFilter")){$("cppTopicFilter").style.display="none";$("cppTopicFilter").value="All";}};
+const oldOpenProblem=openProblem;
+openProblem=function(id){
+oldOpenProblem(id);
+if(currentProblem&&currentProblem[2]==="CPP"){
+$("workTopic").textContent="CPP · "+currentProblem[7].toUpperCase();
+$("workMeta").textContent="C++ practice · "+currentProblem[7];
+$("leetcodeLink").style.display="none";
+$("complexityInfo").textContent="Focus: "+currentProblem[7]+" · Compile with C++17";
+$("notes").textContent="Solve this independently first. Use Run to test your sample input, then add your own edge cases. Mark the question solved only when you can explain the approach and the C++ concepts used.";
+if(window.reiyadEditor)reiyadEditor.setValue($("code").value);
+}
+};
+const oldUpdateHome=updateHome;
+updateHome=function(){oldUpdateHome();const tile=document.getElementById("cppHomeTile");if(tile)tile.querySelector(".tilefoot span").textContent=cppQuestions.length+" questions";};
+const homeTiles=document.querySelector(".tiles");
+if(homeTiles&&!document.getElementById("cppHomeTile")){
+const tile=document.createElement("div");tile.className="card tile";tile.id="cppHomeTile";tile.innerHTML='<div class="symbol">C++</div><h3>C++ Programming</h3><p>18 guided questions covering fundamentals, pointers, OOP, STL, templates and advanced standalone topics.</p><div class="tilefoot"><span>18 questions</span><span>Explore →</span></div>';tile.onclick=()=>showList("CPP");homeTiles.appendChild(tile);
+}
+const drawer=document.getElementById("sideDrawer");
+if(drawer&&!drawer.querySelector('[data-cpp-nav]')){
+const b=document.createElement("button");b.dataset.cppNav="1";b.textContent="C++ Programming";b.onclick=()=>{showList("CPP");closeDrawer()};const label=[...drawer.querySelectorAll(".drawer-label")].find(x=>x.textContent==="TOPICS");if(label)label.after(b);
+}
+const style=document.createElement("style");style.textContent='.cpp-group{display:block;margin-top:4px;color:var(--muted);font-size:10px;font-weight:500}.cpp-problemrow{grid-template-columns:64px minmax(0,1fr) 90px 100px}@media(max-width:560px){.cpp-problemrow{grid-template-columns:36px minmax(0,1fr) 62px;padding:11px 10px}.cpp-problemrow .solved{display:none}}';document.head.appendChild(style);
+updateHome();
+})();
