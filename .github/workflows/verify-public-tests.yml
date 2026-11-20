@@ -19,3 +19,5 @@ jobs:
           for file in *.js; do node --check "$file"; done
       - name: Verify all public C++ reference tests
         run: node scripts/verify-public-tests.mjs
+      - name: Verify every public test against Judge0 CE
+        run: node scripts/verify-judge0-public-tests.mjs
