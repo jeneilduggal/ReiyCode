@@ -11,9 +11,12 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // Read input here.
+    // Read all whitespace-separated input tokens.
+    vector<string> input;
+    string token;
+    while (cin >> token) input.push_back(token);
 
-    // Write your solution here.
+    // Parse input and write your solution here.
 
     return 0;
 }`;
