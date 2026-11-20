@@ -80,10 +80,6 @@ const homeTiles=document.querySelector(".tiles");
 if(homeTiles&&!document.getElementById("cppHomeTile")){
 const tile=document.createElement("div");tile.className="card tile";tile.id="cppHomeTile";tile.innerHTML='<div class="symbol">C++</div><h3>C++ Programming</h3><p>26 questions covering fundamentals, pointers, OOP, STL, templates and LeetCode-style challenges.</p><div class="tilefoot"><span>26 questions</span><span>Explore →</span></div>';tile.onclick=()=>showList("CPP");homeTiles.appendChild(tile);
 }
-const topNav=document.querySelector(".top .nav");
-if(topNav&&!document.getElementById("cppTopNav")){
-const b=document.createElement("button");b.id="cppTopNav";b.textContent="C++";b.onclick=()=>showList("CPP");topNav.appendChild(b);
-}
 const drawer=document.getElementById("sideDrawer");
 if(drawer&&!drawer.querySelector('[data-cpp-nav]')){
 const b=document.createElement("button");b.dataset.cppNav="1";b.textContent="C++ Programming";b.onclick=()=>{showList("CPP");closeDrawer()};const label=[...drawer.querySelectorAll(".drawer-label")].find(x=>x.textContent==="TOPICS");if(label)label.after(b);
