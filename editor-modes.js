@@ -1,114 +1,63 @@
 (function(){
 "use strict";
 const $=id=>document.getElementById(id);
-const isCpp=p=>p&&p[0]>=96001&&p[0]<=96030;
 const logicKey=id=>"reiyad_logic_"+id;
-const hrKey=id=>"reiyad_hr_"+id;
-const hrTemplate=`#include <bits/stdc++.h>
+const hackerKey=id=>"reiyad_hr_"+id;
+const leetSignatures={
+96023:"vector<int> twoSum(vector<int>& nums, int target)",
+96024:"bool isValid(string s)",
+96025:"int maxProfit(vector<int>& prices)",
+96026:"int lengthOfLongestSubstring(string s)",
+96027:"vector<int> productExceptSelf(vector<int>& nums)",
+96028:"bool isAnagram(string s, string t)",
+96029:"int search(vector<int>& nums, int target)",
+96030:"int maxSubArray(vector<int>& nums)"
+};
+const logicStarter=p=>{
+ const sig=leetSignatures[p[0]];
+ if(sig)return "class Solution {\npublic:\n    "+sig+" {\n        \n    }\n};";
+ return "class Solution {\npublic:\n    void solve(istream& in, ostream& out) {\n        \n    }\n};";
+};
+const hackerStarter=`#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // Read all whitespace-separated input tokens.
-    vector<string> input;
-    string token;
-    while (cin >> token) input.push_back(token);
-
-    // Parse input and write your solution here.
+    // Read input with cin and print the required output.
 
     return 0;
 }`;
-const logicTemplates={
-96023:`class Solution {
-public:
-    vector<int> twoSum(vector<int>& nums, int target) {
-        
-    }
-};`,
-96024:`class Solution {
-public:
-    bool isValid(string s) {
-        
-    }
-};`,
-96025:`class Solution {
-public:
-    int maxProfit(vector<int>& prices) {
-        
-    }
-};`,
-96026:`class Solution {
-public:
-    int lengthOfLongestSubstring(string s) {
-        
-    }
-};`,
-96027:`class Solution {
-public:
-    vector<int> productExceptSelf(vector<int>& nums) {
-        
-    }
-};`,
-96028:`class Solution {
-public:
-    bool isAnagram(string s, string t) {
-        
-    }
-};`,
-96029:`class Solution {
-public:
-    int search(vector<int>& nums, int target) {
-        
-    }
-};`,
-96030:`class Solution {
-public:
-    int maxSubArray(vector<int>& nums) {
-        
-    }
-};`
-};
-const logicTemplate=p=>logicTemplates[p[0]]||`class Solution {
-public:
-    void solve() {
-        // Implement the required logic here.
-    }
-};`;
 let mode="logic", switching=false;
-function editorGet(){return window.reiyadEditor?reiyadEditor.getValue():$("code").value}
-function editorSet(v){if(window.reiyadEditor)reiyadEditor.setValue(v);else $("code").value=v}
-function saveModeBuffer(){if(!window.currentId)return;localStorage.setItem(mode==="logic"?logicKey(currentId):hrKey(currentId),editorGet())}
-function loadMode(m){
- if(!currentProblem)return;
- saveModeBuffer();
- mode=m;
- const key=m==="logic"?logicKey(currentId):hrKey(currentId);
- const existing=localStorage.getItem(key);
- let value=existing;
- if(value===null){
-   if(m==="logic") value=logicTemplate(currentProblem);
-   else value=hrTemplate;
-   localStorage.setItem(key,value);
- }
- switching=true;editorSet(value);switching=false;
- const l=$("editorModeLogic"),h=$("editorModeHacker");
- if(l)l.classList.toggle("active",m==="logic");
- if(h)h.classList.toggle("active",m==="hacker");
- const hint=$("editorModeHint");
- if(hint)hint.textContent=m==="logic"?"Function/class only · LeetCode-style":"Complete C++17 program · stdin/stdout";
- const summary=$("testSummary");
- if(summary&&m==="logic")summary.textContent="Logic-only mode is for writing the function/class. Switch to HackerRank mode to run stdin/stdout test cases with Judge0.";
+function getCode(){return window.reiyadEditor?window.reiyadEditor.getValue():$("code").value}
+function setCode(value){if(window.reiyadEditor)window.reiyadEditor.setValue(value);else $("code").value=value}
+function storeDraft(){
+ if(!window.currentId)return;
+ localStorage.setItem(mode==="logic"?logicKey(currentId):hackerKey(currentId),getCode());
 }
-function addModeControls(){
+function setMode(next){
+ if(!window.currentProblem)return;
+ storeDraft();
+ mode=next;
+ const k=next==="logic"?logicKey(currentId):hackerKey(currentId);
+ let value=localStorage.getItem(k);
+ if(value===null){value=next==="logic"?logicStarter(currentProblem):hackerStarter;localStorage.setItem(k,value)}
+ switching=true;setCode(value);switching=false;
+ $("editorModeLogic")?.classList.toggle("active",next==="logic");
+ $("editorModeHacker")?.classList.toggle("active",next==="hacker");
+ const hint=$("editorModeHint");
+ if(hint)hint.textContent=next==="logic"?"Class/function only · Judge wrapper supplied automatically":"Complete C++17 program · write main(), cin and cout";
+ if($("testSummary"))$("testSummary").textContent=next==="logic"?"Logic-only submissions are wrapped with a question-specific main() for public tests.":"Full-program submissions run exactly as written.";
+}
+function addControls(){
  const bar=document.querySelector("#workPage .editor-actions");
  if(!bar||$("editorModeLogic"))return;
  const wrap=document.createElement("div");wrap.className="editor-mode-switch";
  wrap.innerHTML='<span class="tiny muted">Editor mode</span><button type="button" class="btn active" id="editorModeLogic">Default · Logic only</button><button type="button" class="btn" id="editorModeHacker">HackerRank · Full program</button><span id="editorModeHint" class="tiny muted"></span>';
  bar.parentNode.insertBefore(wrap,bar.nextSibling);
- $("editorModeLogic").onclick=()=>loadMode("logic");
- $("editorModeHacker").onclick=()=>loadMode("hacker");
+ $("editorModeLogic").onclick=()=>setMode("logic");
+ $("editorModeHacker").onclick=()=>setMode("hacker");
 }
 const style=document.createElement("style");
 style.textContent=`
@@ -126,50 +75,69 @@ style.textContent=`
 @media(max-width:600px){#editorModeHint{width:100%;margin-left:0}}
 `;
 document.head.appendChild(style);
+function logicWrapper(id,code){
+ const prefix="#include <bits/stdc++.h>\nusing namespace std;\n";
+ if(id>=96001&&id<=96022)return prefix+code+"\nint main(){ios::sync_with_stdio(false);cin.tie(nullptr);Solution s;s.solve(cin,cout);return 0;}\n";
+ const mains={
+ 96023:"int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int t;cin>>t;Solution s;auto v=s.twoSum(a,t);sort(v.begin(),v.end());for(int i=0;i<(int)v.size();i++)cout<<(i?\" \":\"\")<<v[i];}",
+ 96024:"int main(){string s;cin>>s;cout<<(Solution().isValid(s)?\"true\":\"false\");}",
+ 96025:"int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;cout<<Solution().maxProfit(a);}",
+ 96026:"int main(){string s;getline(cin>>ws,s);cout<<Solution().lengthOfLongestSubstring(s);}",
+ 96027:"int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;auto v=Solution().productExceptSelf(a);for(int i=0;i<n;i++)cout<<(i?\" \":\"\")<<v[i];}",
+ 96028:"string a,b;cin>>a>>b;cout<<(Solution().isAnagram(a,b)?\"true\":\"false\");}",
+ 96029:"int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int t;cin>>t;cout<<Solution().search(a,t);}",
+ 96030:"int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;cout<<Solution().maxSubArray(a);}"
+ };
+ let main=mains[id]||"";
+ if(id===96028)main="int main(){"+main;
+ return prefix+code+"\n"+main+"\n";
+}
 const previousOpen=window.openProblem;
 window.openProblem=function(id){
  previousOpen(id);
- addModeControls();
- if(!currentProblem)return;
- const solutionPane=$("tab-solutions");
- if(solutionPane&&currentProblem[0]>=96001&&currentProblem[0]<=96030&&typeof starter==="function"){
-   const pre=document.createElement("pre");pre.className="solution-code";pre.textContent=starter(currentProblem);
-   solutionPane.innerHTML="";const wrap=document.createElement("div");wrap.className="content";const title=document.createElement("h2");title.textContent="Reference C++17 solution";const note=document.createElement("p");note.className="muted";note.textContent="Complete reference implementation for this exercise. The editor remains separate.";wrap.append(title,note,pre);solutionPane.append(wrap);
- }
- // Maintain independent drafts for both editor modes per problem.
+ if(!window.currentProblem)return;
+ addControls();
  mode="logic";
- let logic=localStorage.getItem(logicKey(id));
- if(logic===null){logic=logicTemplate(currentProblem);localStorage.setItem(logicKey(id),logic)}
- switching=true;editorSet(logic);switching=false;
- const hint=$("editorModeHint");if(hint)hint.textContent="Function/class only · LeetCode-style";
+ const k=logicKey(id);let code=localStorage.getItem(k);
+ if(code===null){code=logicStarter(currentProblem);localStorage.setItem(k,code)}
+ switching=true;setCode(code);switching=false;
  $("editorModeLogic")?.classList.add("active");$("editorModeHacker")?.classList.remove("active");
- if(isCpp(currentProblem)&&id>=96023){
-   const description=$("description");
-   if(description)description.textContent=String(currentProblem[4]||"").replace(/Problem Statement\n[^\n]*\n\nTask\n/,"");
+ if($("editorModeHint"))$("editorModeHint").textContent="Class/function only · Judge wrapper supplied automatically";
+ if($("testSummary"))$("testSummary").textContent="Logic-only submissions are wrapped with a question-specific main() for public tests.";
+ const pane=$("tab-solutions");
+ if(pane&&currentProblem[2]==="CPP"&&typeof window.starter==="function"){
+   const source=window.starter(currentProblem);
+   const wrap=document.createElement("div");wrap.className="content";
+   const h=document.createElement("h2");h.textContent="Complete C++17 reference solution";
+   const p=document.createElement("p");p.className="muted";p.textContent="Reference code is separate from your editor draft.";
+   const pre=document.createElement("pre");pre.className="solution-code";pre.textContent=source;
+   wrap.append(h,p,pre);pane.replaceChildren(wrap);
  }
 };
-const oldReset=window.resetCode;
+window.reiyadEditorMode=()=>mode;
+window.reiyadBuildSubmissionSource=(id,source)=>mode==="logic"?logicWrapper(id,source):source;
+const oldRunOne=window.runOne;
+if(typeof oldRunOne==="function"){
+ window.runOne=async function(input){
+   const id=window.currentId,source=window.reiyadBuildSubmissionSource(id,getCode());
+   const base="https://ce.judge0.com";
+   const response=await fetch(base+"/submissions?base64_encoded=false&wait=false",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({source_code:source,language_id:54,stdin:input,cpu_time_limit:5,memory_limit:128000})});
+   if(!response.ok)throw Error("Judge0 HTTP "+response.status);
+   const job=await response.json();let result;
+   for(let i=0;i<40;i++){await new Promise(resolve=>setTimeout(resolve,800));const poll=await fetch(base+"/submissions/"+job.token+"?base64_encoded=false");result=await poll.json();if(result.status.id>2)break}
+   return result;
+ };
+}
+const originalReset=window.resetCode;
 window.resetCode=function(){
  if(!currentProblem)return;
- const fresh=mode==="logic"?logicTemplate(currentProblem):hrTemplate;
- if(!confirm("Reset this "+(mode==="logic"?"logic-only":"HackerRank") +" editor draft?"))return;
- editorSet(fresh);localStorage.setItem(mode==="logic"?logicKey(currentId):hrKey(currentId),fresh);
+ if(!confirm("Reset this "+(mode==="logic"?"logic-only":"HackerRank")+" draft?"))return;
+ const fresh=mode==="logic"?logicStarter(currentProblem):hackerStarter;
+ setCode(fresh);localStorage.setItem(mode==="logic"?logicKey(currentId):hackerKey(currentId),fresh);
  if($("saveState"))$("saveState").textContent="Starter restored";
 };
-const oldRun=window.runCode;
-window.runCode=async function(){
- if(mode==="logic"){if($("output"))$("output").textContent="Switch to HackerRank · Full program mode before running with stdin/stdout. Logic-only mode is intended for the function/class implementation.";return}
- return oldRun();
-};
-const oldSubmit=window.submitCode;
-window.submitCode=async function(){
- if(mode==="logic"){if($("testSummary"))$("testSummary").textContent="Switch to HackerRank · Full program mode before running public test cases.";if($("output"))$("output").textContent="Public test cases execute complete programs. Switch to HackerRank mode, add input parsing and output, then submit.";return}
- return oldSubmit();
-};
 const code=$("code");
-if(code)code.addEventListener("input",()=>{if(!switching&&currentId)saveModeBuffer()});\nif(window.reiyadEditor)reiyadEditor.on("change",()=>{if(!switching&&currentId)saveModeBuffer()});\nwindow.addEventListener("load",()=>{if(window.reiyadEditor)reiyadEditor.on("change",()=>{if(!switching&&currentId)saveModeBuffer()})});
-window.addEventListener("load",()=>{
- addModeControls();
- if(currentProblem){loadMode("logic")}
-});
+if(code)code.addEventListener("input",()=>{if(!switching)storeDraft()});
+if(window.reiyadEditor)window.reiyadEditor.on("change",()=>{if(!switching)storeDraft()});
+window.addEventListener("load",()=>{addControls();if(window.currentProblem)setMode("logic")});
 })();
