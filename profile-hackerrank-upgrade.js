@@ -55,7 +55,16 @@ const area=$("stdin"),tests=(sampleTests&&sampleTests[problem[0]])||[],testbox=$
 area.classList.add("hide");
 $("hackerToggle").onclick=()=>{const opening=area.classList.contains("hide");area.classList.toggle("hide");$("hackerToggle").textContent=opening?"Hide custom input":"HackerRank style";if(opening)area.scrollIntoView({block:"nearest",behavior:"smooth"})};
 if(tests.length){testbox.innerHTML=tests.map((t,i)=>'<button class="btn" type="button" data-case="'+i+'">Case '+(i+1)+'</button>').join(" ");summary.textContent=tests.length+" sample cases available. Choose one to load its input.";testbox.querySelectorAll("[data-case]").forEach(b=>b.onclick=()=>{area.value=tests[+b.dataset.case][0];area.classList.remove("hide");$("hackerToggle").textContent="Hide custom input";summary.textContent="Loaded sample case "+(+b.dataset.case+1)+" · press Run to execute"});}
-}renderProfileButton();
+}/* Format the four Leet-style C++ additions after leet-ui.js registers them. */
+problems.forEach(q=>{
+ if([96027,96028,96029,96030].includes(q[0])&&q[2]==="CPP"&&!q[4].includes("Problem Statement")){
+  const brief=q[4],examples=q[5]||"";
+  const sample=examples.split(/\n\s*\n/).filter(Boolean).map((x,i)=>"Sample "+(i+1)+"\n"+x).join("\n\n");
+  const req={96027:"Build prefix and suffix products. Division is not allowed; zero values must work naturally.",96028:"Compare character frequencies or sort both strings. Their character multisets must match.",96029:"Use binary search over the sorted array. Shrink the search interval on every iteration and return -1 when absent.",96030:"Use Kadane's algorithm. Track the best subarray ending here and the best sum overall."};
+  q[4]="Problem Statement\n"+q[1]+"\n\nTask\n"+brief+"\nWrite a standard C++17 program. Read from stdin and print only the required answer to stdout. The solution must work for every valid input, not only the samples.\n\nRequired approach\n"+req[q[0]]+"\n\nInput Format\nRead n followed by n integer values, then any additional value specified by the task. Follow the order shown in each sample.\n\nConstraints\nThe input follows the stated format. Use int for indices and long long for sums or products when needed.\n\nOutput Format\nPrint the required result in the exact format shown. Do not print prompts or debug messages.\n\n"+sample+"\n\nImplementation Notes\n- Language: C++17.\n- Handle boundary cases, including the smallest valid input.\n- Keep the algorithm within the expected time complexity.";
+ }
+});
+renderProfileButton();
 updateHome();
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&$("themeProfileMenu"))$("themeProfileMenu").remove()});
 })();
