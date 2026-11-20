@@ -105,25 +105,25 @@ function logicWrapper(id,code){
 
 function escapeHtml(value){return String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
 function formatStatement(raw){
- const headingPattern=/^(Problem Statement|Task|Required approach and concepts|Input Format|Output Format|Constraints|Example(?:\\s+\\d+)?|Sample Input(?:\\s+\\d+)?|Sample Output(?:\\s+\\d+)?|Implementation Notes|Complexity(?: target)?|Approach|Notes)\\s*:?[ \\t]*$/i;
+ const headingPattern=/^(Problem Statement|Task|Required approach and concepts|Input Format|Output Format|Constraints|Example(?:\s+\d+)?|Sample Input(?:\s+\d+)?|Sample Output(?:\s+\d+)?|Implementation Notes|Complexity(?: target)?|Approach|Notes)\s*:?[ \t]*$/i;
  const blocks=[];let heading="",buffer=[];
  const flush=()=>{
-  const body=buffer.join("\\n").trim();
-  if(!heading){if(body)blocks.push('<section class="statement-section"><div class="statement-body"><p>'+escapeHtml(body).replace(/\\n/g,"<br>")+'</p></div></section>')}
+  const body=buffer.join("\n").trim();
+  if(!heading){if(body)blocks.push('<section class="statement-section"><div class="statement-body"><p>'+escapeHtml(body).replace(/\n/g,"<br>")+'</p></div></section>')}
   else if(/^Sample (Input|Output)/i.test(heading)){
    blocks.push('<section class="statement-section"><h3 class="statement-heading">'+escapeHtml(heading)+'</h3><pre class="statement-code">'+escapeHtml(body)+'</pre></section>');
   }else{
-   const paragraphs=body.split(/\\n\\s*\\n/).filter(Boolean);
+   const paragraphs=body.split(/\n\s*\n/).filter(Boolean);
    const html=paragraphs.map(part=>{
-    const lines=part.split("\\n");
-    if(lines.every(line=>/^\\s*[-•]\\s+/.test(line)))return '<ul class="statement-list">'+lines.map(line=>'<li>'+escapeHtml(line.replace(/^\\s*[-•]\\s+/,""))+'</li>').join("")+'</ul>';
-    return '<p>'+escapeHtml(part).replace(/\\n/g,"<br>")+'</p>';
+    const lines=part.split("\n");
+    if(lines.every(line=>/^\s*[-•]\s+/.test(line)))return '<ul class="statement-list">'+lines.map(line=>'<li>'+escapeHtml(line.replace(/^\s*[-•]\s+/,""))+'</li>').join("")+'</ul>';
+    return '<p>'+escapeHtml(part).replace(/\n/g,"<br>")+'</p>';
    }).join("");
    blocks.push('<section class="statement-section"><h3 class="statement-heading">'+escapeHtml(heading)+'</h3><div class="statement-body">'+html+'</div></section>');
   }
   heading="";buffer=[];
  };
- for(const line of String(raw||"").replace(/\\r/g,"").split("\\n")){
+ for(const line of String(raw||"").replace(/\r/g,"").split("\n")){
   const match=line.trim().match(headingPattern);
   if(match){flush();heading=match[1]}else buffer.push(line);
  }
