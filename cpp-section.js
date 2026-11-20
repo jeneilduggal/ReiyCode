@@ -294,7 +294,7 @@ if(window.reiyadEditor)reiyadEditor.setValue($("code").value);
 }
 };
 const oldUpdateHome=updateHome;
-updateHome=function(){oldUpdateHome();const tile=document.getElementById("cppHomeTile");if(tile)tile.querySelector(".tilefoot span").textContent=cppQuestions.length+" questions";};
+updateHome=function(){oldUpdateHome();const tile=document.getElementById("cppHomeTile");if(tile)tile.querySelector(".tilefoot span").textContent=problems.filter(p=>p[2]==="CPP").length+" questions";};
 const homeTiles=document.querySelector(".tiles");
 if(homeTiles&&!document.getElementById("cppHomeTile")){
 const tile=document.createElement("div");tile.className="card tile";tile.id="cppHomeTile";tile.innerHTML='<div class="symbol">C++</div><h3>C++ Programming</h3><p>26 questions covering fundamentals, pointers, OOP, STL, templates and LeetCode-style challenges.</p><div class="tilefoot"><span>26 questions</span><span>Explore →</span></div>';tile.onclick=()=>showList("CPP");homeTiles.appendChild(tile);
