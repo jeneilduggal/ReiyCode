@@ -26,7 +26,11 @@
  96023:[["4\n2 7 11 15\n9","0 1"],["3\n3 2 4\n6","1 2"],["2\n3 3\n6","0 1"]],
  96024:[["()","true"],["([)]","false"],["{[]}","true"]],
  96025:[["6\n7 1 5 3 6 4","5"],["5\n7 6 4 3 1","0"],["5\n2 4 1 8 3","7"]],
- 96026:[["abcabcbb","3"],["bbbbb","1"],["pwwkew","3"]]
+ 96026:[["abcabcbb","3"],["bbbbb","1"],["pwwkew","3"]],
+ 96027:[["4\n1 2 3 4","24 12 8 6"],["5\n-1 1 0 -3 3","0 0 9 0 0"],["2\n3 5","5 3"]],
+ 96028:[["anagram\nnagaram","true"],["rat\ncar","false"],["a\na","true"]],
+ 96029:[["6\n-1 0 3 5 9 12\n9","4"],["6\n-1 0 3 5 9 12\n2","-1"],["1\n5\n5","0"]],
+ 96030:[["9\n-2 1 -3 4 -1 2 1 -5 4","6"],["1\n1","1"],["5\n5 4 -1 7 8","23"]]
  };
  for(const [id,tests] of Object.entries(cases))sampleTests[id]=tests;
  window.reiyadPublicTestCounts=Object.fromEntries(Object.entries(cases).map(([id,t])=>[id,t.length]));
