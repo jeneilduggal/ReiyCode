@@ -79,7 +79,7 @@ style.textContent=`
 document.head.appendChild(style);
 function logicWrapper(id,code){
  const prefix="#include <bits/stdc++.h>\nusing namespace std;\n";
- if(id>=96001&&id<=96022)return prefix+code+"\nint main(){ios::sync_with_stdio(false);cin.tie(nullptr);Solution s;s.solve(cin,cout);return 0;}\n";
+ if((id>=96001&&id<=96022)||id===96031||id===96032)return prefix+code+"\nint main(){ios::sync_with_stdio(false);cin.tie(nullptr);Solution s;s.solve(cin,cout);return 0;}\n";
  const mains={
  96023:"int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int t;cin>>t;Solution s;auto v=s.twoSum(a,t);sort(v.begin(),v.end());for(int i=0;i<(int)v.size();i++)cout<<(i?\" \":\"\")<<v[i];}",
  96024:"int main(){string s;cin>>s;cout<<(Solution().isValid(s)?\"true\":\"false\");}",
