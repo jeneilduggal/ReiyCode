@@ -5,6 +5,11 @@ const cppQuestions=[[96001,"Core C++ Foundations — Number Report","Easy","Read
 ,[96020,"Virtual Functions, Override & Object Slicing","Hard","Create a base class Employee with a virtual display() function and a virtual destructor. Derive Manager and Developer, each overriding display(). Store derived objects in a vector of unique_ptr<Employee> and call display() through base pointers to demonstrate runtime dispatch. Then create a plain Employee value from a derived object and print its base-only display to demonstrate object slicing.","Input:\n2\nM Asha\nD Dev\nOutput:\nManager: Asha\nDeveloper: Dev\nSliced value: Employee","Runtime Dispatch & Object Slicing"]
 ,[96021,"STL Challenge — Frequency Ranking with Custom Comparator","Hard","Read n integers and use an unordered_map to count each value's frequency. Move the distinct values into a vector and sort them with a custom comparator: higher frequency first; if frequencies tie, smaller value first. Print value-frequency pairs. Use STL containers and algorithms rather than manually implementing sorting.","Input:\n8\n4 2 4 3 2 4 3 5\nOutput:\n4:3\n2:2\n3:2\n5:1","STL Containers & Custom Comparators"]
 ,[96022,"Template Specialization — Generic Stack with Safe Access","Hard","Implement a class template Stack with push, pop, top and empty operations using an STL vector internally. If pop or top is called on an empty stack, throw an underflow_error and catch it in main. Add an explicit specialization for Stack<bool> that stores boolean values in an unsigned integer (support up to 32 pushes) and implements the same public operations. Demonstrate both the generic and specialized versions.","Input:\n3\n10 20 30\nOutput:\nTop: 30\nPopped: 30\nTop: 20\nBool top: 1\nError: Stack is empty","Templates, Specialization & Exceptions"]
+
+,[96023,"Two Sum","Leet Difficulty","Given an array of integers nums and an integer target, return the indices of the two numbers such that they add up to target. Assume exactly one solution exists and do not use the same element twice. Input format: n, then n integers, then target. Output the two 0-based indices in ascending order.","Input:\n4\n2 7 11 15\n9\nOutput:\n0 1\n\nInput:\n3\n3 2 4\n6\nOutput:\n1 2","Arrays & Hashing"],
+[96024,"Valid Parentheses","Leet Difficulty","Given a string containing only '(', ')', '{', '}', '[' and ']', determine whether the input string is valid. Every opening bracket must be closed by the same type of bracket and in the correct order. Input is one bracket string; output true or false.","Input:\n()\nOutput:\ntrue\n\nInput:\n([)]\nOutput:\nfalse\n\nInput:\n{[]}\nOutput:\ntrue","Stack"],
+[96025,"Best Time to Buy and Sell Stock","Leet Difficulty","You are given an array prices where prices[i] is the price of a stock on the i-th day. Choose one day to buy and a later day to sell. Return the maximum profit; if no positive profit is possible, return 0. Input format: n followed by n prices.","Input:\n6\n7 1 5 3 6 4\nOutput:\n5\n\nInput:\n5\n7 6 4 3 1\nOutput:\n0","Arrays & Greedy"],
+[96026,"Longest Substring Without Repeating Characters","Leet Difficulty","Given a string s, find the length of the longest substring without repeating characters. A substring is a contiguous sequence of characters. Input is one string without spaces; output its maximum length.","Input:\nabcabcbb\nOutput:\n3\n\nInput:\nbbbbb\nOutput:\n1\n\nInput:\npwwkew\nOutput:\n3","Sliding Window & Hashing"]
 ];
 for(const q of cppQuestions) problems.push([q[0],q[1],"CPP",q[2],q[3],q[4],"",q[5]]);
 const oldStarter=starter;
@@ -31,6 +36,16 @@ const cppSamples={
 96018:[["2\n101 Asha 86\n102 Dev 91","101 Asha 86\n102 Dev 91"]]
 };
 Object.assign(sampleTests,cppSamples);
+Object.assign(sampleTests,{
+96023:[["4\n2 7 11 15\n9","0 1"],["3\n3 2 4\n6","1 2"],["2\n3 3\n6","0 1"]],
+96024:[["()","true"],["([)]","false"],["{[]}","true"],["(","false"]],
+96025:[["6\n7 1 5 3 6 4","5"],["5\n7 6 4 3 1","0"],["2\n2 4","2"]],
+96026:[["abcabcbb","3"],["bbbbb","1"],["pwwkew","3"],["dvdf","3"]]
+});
+const difficultySelect=document.getElementById("difficulty");
+if(difficultySelect&&!Array.from(difficultySelect.options).some(o=>o.value==="Leet Difficulty")){
+const option=document.createElement("option");option.value="Leet Difficulty";option.textContent="Leet Difficulty";difficultySelect.appendChild(option);
+}
 const toolbar=document.querySelector("#listPage .toolbar");
 if(toolbar){
 const topic=document.createElement("select");
@@ -43,7 +58,7 @@ renderList=function(){
 if(currentTopic!=="CPP"){oldRenderList();return}
 const q=$("search").value.toLowerCase(),d=$("difficulty").value,sf=$("statusFilter").value,tf=$("cppTopicFilter")?.value||"All",sol=getSolved();
 const arr=problems.filter(p=>p[2]==="CPP"&&p[1].toLowerCase().includes(q)&&(d==="All"||p[3]===d)&&(tf==="All"||p[7]===tf)&&(sf==="All"||(sf==="Solved")===sol.includes(p[0])));
-$("problemList").innerHTML=arr.length?arr.map(p=>'<div class="problemrow cpp-problemrow" onclick="openProblem('+p[0]+')"><span class="num">#'+p[0]+'</span><span class="pname">'+p[1]+'<small class="cpp-group">'+p[7]+'</small></span><span class="difficulty '+p[3].toLowerCase()+'">'+p[3]+'</span><span class="solved">'+(sol.includes(p[0])?"✓ Solved":localStorage.getItem(key(p[0]))?"Draft saved":"")+'</span></div>').join(""):'<div class="content muted">No C++ questions match these filters.</div>';
+$("problemList").innerHTML=arr.length?arr.map(p=>'<div class="problemrow cpp-problemrow" onclick="openProblem('+p[0]+')"><span class="num">#'+p[0]+'</span><span class="pname">'+p[1]+'<small class="cpp-group">'+p[7]+'</small></span><span class="difficulty '+p[3].toLowerCase().replace(/\s+/g,'-')+'">'+p[3]+'</span><span class="solved">'+(sol.includes(p[0])?"✓ Solved":localStorage.getItem(key(p[0]))?"Draft saved":"")+'</span></div>').join(""):'<div class="content muted">No C++ questions match these filters.</div>';
 };
 const oldShowList=showList;
 showList=function(topic){oldShowList(topic);if(topic==="CPP"){$("listTitle").textContent="C++ · Complete Practice Path";$("cppTopicFilter").style.display="";}else if($("cppTopicFilter")){$("cppTopicFilter").style.display="none";$("cppTopicFilter").value="All";}};
@@ -63,7 +78,7 @@ const oldUpdateHome=updateHome;
 updateHome=function(){oldUpdateHome();const tile=document.getElementById("cppHomeTile");if(tile)tile.querySelector(".tilefoot span").textContent=cppQuestions.length+" questions";};
 const homeTiles=document.querySelector(".tiles");
 if(homeTiles&&!document.getElementById("cppHomeTile")){
-const tile=document.createElement("div");tile.className="card tile";tile.id="cppHomeTile";tile.innerHTML='<div class="symbol">C++</div><h3>C++ Programming</h3><p>22 guided questions covering fundamentals, pointers, OOP, STL, templates and advanced standalone topics.</p><div class="tilefoot"><span>22 questions</span><span>Explore →</span></div>';tile.onclick=()=>showList("CPP");homeTiles.appendChild(tile);
+const tile=document.createElement("div");tile.className="card tile";tile.id="cppHomeTile";tile.innerHTML='<div class="symbol">C++</div><h3>C++ Programming</h3><p>26 questions covering fundamentals, pointers, OOP, STL, templates and LeetCode-style challenges.</p><div class="tilefoot"><span>26 questions</span><span>Explore →</span></div>';tile.onclick=()=>showList("CPP");homeTiles.appendChild(tile);
 }
 const topNav=document.querySelector(".top .nav");
 if(topNav&&!document.getElementById("cppTopNav")){
@@ -73,6 +88,6 @@ const drawer=document.getElementById("sideDrawer");
 if(drawer&&!drawer.querySelector('[data-cpp-nav]')){
 const b=document.createElement("button");b.dataset.cppNav="1";b.textContent="C++ Programming";b.onclick=()=>{showList("CPP");closeDrawer()};const label=[...drawer.querySelectorAll(".drawer-label")].find(x=>x.textContent==="TOPICS");if(label)label.after(b);
 }
-const style=document.createElement("style");style.textContent='.cpp-group{display:block;margin-top:4px;color:var(--muted);font-size:10px;font-weight:500}.cpp-problemrow{grid-template-columns:64px minmax(0,1fr) 90px 100px}@media(max-width:560px){.cpp-problemrow{grid-template-columns:36px minmax(0,1fr) 62px;padding:11px 10px}.cpp-problemrow .solved{display:none}}';document.head.appendChild(style);
+const style=document.createElement("style");style.textContent='.difficulty.leet-difficulty{border-color:var(--blue);color:var(--blue)}.cpp-group{display:block;margin-top:4px;color:var(--muted);font-size:10px;font-weight:500}.cpp-problemrow{grid-template-columns:64px minmax(0,1fr) 90px 100px}@media(max-width:560px){.cpp-problemrow{grid-template-columns:36px minmax(0,1fr) 62px;padding:11px 10px}.cpp-problemrow .solved{display:none}}';document.head.appendChild(style);
 updateHome();
 })();
