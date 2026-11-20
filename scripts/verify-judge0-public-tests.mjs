@@ -16,7 +16,7 @@ const jobs=Object.entries(tests).flatMap(([id,cases])=>cases.map(([input,expecte
 const base="https://ce.judge0.com";
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 async function request(url,options,attempt=0){
- const response=await fetch(url,options);
+ const response=await fetch(url,{...options,signal:AbortSignal.timeout(25000)});
  if((response.status===429||response.status>=500)&&attempt<4){await sleep(1000*(attempt+1));return request(url,options,attempt+1)}
  if(!response.ok)throw new Error("Judge0 HTTP "+response.status+" "+(await response.text()).slice(0,250));
  return response.json();
