@@ -5,13 +5,15 @@ import vm from "node:vm";
 const root=process.cwd();
 const cppText=fs.readFileSync(path.join(root,"cpp-section.js"),"utf8");
 const publicText=fs.readFileSync(path.join(root,"public-test-cases.js"),"utf8");
+const hiddenText=fs.readFileSync(path.join(root,"hidden-test-cases.js"),"utf8");
 const start=cppText.indexOf("const cppStarters=");
 const end=cppText.indexOf("\n};\nstarter=function",start);
 if(start<0||end<0)throw new Error("Could not locate C++ reference programs.");
 const programs=vm.runInNewContext("("+cppText.slice(start+"const cppStarters=".length,end+2)+")");
 const sandbox={sampleTests:{},window:{}};
 vm.runInNewContext(publicText,sandbox);
-const tests=sandbox.sampleTests;
+vm.runInNewContext(hiddenText,sandbox);
+const tests=Object.fromEntries(Object.entries(sandbox.sampleTests).map(([id,cases])=>[id,[...cases,...(sandbox.window.hiddenTestCases?.[id]||[])]]));
 const jobs=Object.entries(tests).flatMap(([id,cases])=>cases.map(([input,expected],index)=>({id,index:index+1,input,expected,source:programs[id]})));
 const base="https://ce.judge0.com";
 const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
@@ -48,5 +50,5 @@ async function worker(){
  }
 }
 await Promise.all(Array.from({length:4},worker));
-console.log("Judge0 public verification: "+passed+"/"+jobs.length+" cases passed across "+Object.keys(tests).length+" questions.");
+console.log("Judge0 public + supplementary hidden verification: "+passed+"/"+jobs.length+" cases passed across "+Object.keys(tests).length+" questions.");
 if(failed.length){for(const failure of failed)console.error(JSON.stringify(failure));process.exitCode=1}
