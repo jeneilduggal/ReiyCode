@@ -12,7 +12,7 @@
  96010:[["Tom 19 IT","Person constructor\nStudent constructor\nTeachingAssistant constructor\nName: Tom\nAge: 19\nDepartment: IT"]],
  96011:[["Sam 22 60000","Person constructor\nStudent constructor\nEmployee constructor\nTeachingAssistant constructor\nName: Sam\nAge: 22\nSalary: 60000"]],
  96012:[["2\nC 3\nR 2 5","28.27\n10.00"]],
- 96013:[["1 2\n8 9","8 9"]],
+ 96013:[["1 2\n8 9","8\n9"]],
  96014:[["4\n3 3 -1 2\n4","Ascending: -1 2 3\nTarget: Not Found\nDescending: 3 2 -1"]],
  96015:[["4 9\n7.5 3.2","Max int: 9\nMax double: 7.5\nPair: 4, 9"]],
  96016:[["2\n4 6\n8","File sum: 18"]],
