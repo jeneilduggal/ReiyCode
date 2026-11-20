@@ -128,6 +128,11 @@ window.openProblem=function(id){
  previousOpen(id);
  addModeControls();
  if(!currentProblem)return;
+ const solutionPane=$("tab-solutions");
+ if(solutionPane&&currentProblem[0]>=96001&&currentProblem[0]<=96030&&typeof starter==="function"){
+   const pre=document.createElement("pre");pre.className="solution-code";pre.textContent=starter(currentProblem);
+   solutionPane.innerHTML="";const wrap=document.createElement("div");wrap.className="content";const title=document.createElement("h2");title.textContent="Reference C++17 solution";const note=document.createElement("p");note.className="muted";note.textContent="Complete reference implementation for this exercise. The editor remains separate.";wrap.append(title,note,pre);solutionPane.append(wrap);
+ }
  // Maintain independent drafts for both editor modes per problem.
  mode="logic";
  let logic=localStorage.getItem(logicKey(id));
