@@ -12,6 +12,52 @@ const cppQuestions=[[96001,"Core C++ Foundations — Number Report","Easy","Read
 [96026,"Longest Substring Without Repeating Characters","Leet Difficulty","Given a string s, find the length of the longest substring without repeating characters. A substring is a contiguous sequence of characters. Input is one string without spaces; output its maximum length.","Input:\nabcabcbb\nOutput:\n3\n\nInput:\nbbbbb\nOutput:\n1\n\nInput:\npwwkew\nOutput:\n3","Sliding Window & Hashing"]
 ];
 for(const q of cppQuestions) problems.push([q[0],q[1],"CPP",q[2],q[3],q[4],"",q[5]]);
+
+/* Consistent full problem-statement layout for the 30 core C++/Leet practice tasks. */
+const cppDetailedIds=new Set(Array.from({length:30},(_,i)=>96001+i));
+function cppStatement(q){
+ const id=q[0],title=q[1],level=q[3],topic=q[7]||"C++ Programming",brief=q[4],examples=q[5]||"";
+ const chunks=examples.split(/\\n\\s*\\n/).filter(Boolean);
+ const sample=chunks.map((x,i)=>"Sample "+(i+1)+"\\n"+x).join("\\n\\n");
+ const format=brief+"\\n\\nYour program must be written in standard C++17. Read all required values from standard input (cin) and print only the requested result to standard output (cout). Do not hard-code the sample values. Handle the general input, not just the examples.";
+ const requirements={
+ 96001:"Use loops and an array/vector to calculate every statistic in one traversal where possible. Keep the average as a floating-point value and print exactly two digits after the decimal point.",
+ 96002:"Preserve the original input line for the reversed output. For palindrome checking, build a normalized copy by ignoring spaces and comparing letters without case sensitivity.",
+ 96003:"Use a recursive function for factorial. Keep the static counter inside a separate function and call that function exactly three times.",
+ 96004:"Use nested loops for the matrix. Print row sums in input row order, then print the transpose with one original column per output row.",
+ 96005:"Allocate with new[], traverse by pointer arithmetic, pass the pointer and size to a sum function, and release the allocation with delete[].",
+ 96006:"Create both objects requested in the statement. Keep data members private and demonstrate constructor invocation through the observable object state.",
+ 96007:"Allocate owned data dynamically. Implement a copy constructor that allocates independent storage and copies the value; changing the original must not change the copy.",
+ 96008:"Use two overloads with the same function name but different parameter types. Avoid integer truncation when calculating the circle area.",
+ 96009:"Overload operator+ for addition and operator<< as a friend. Format negative imaginary values without printing '+-'",
+ 96010:"Pass constructor arguments through the inheritance chain. Print constructor messages in the required base-to-derived order.",
+ 96011:"Use virtual inheritance on both intermediate classes. Initialise the shared virtual base in the most-derived constructor.",
+ 96012:"Make Shape abstract with a pure virtual area() function and a virtual destructor. Invoke the overridden methods through base-class pointers.",
+ 96013:"Allocate each matrix row separately using int**. Delete every row before deleting the outer pointer.",
+ 96014:"Use vector, iterators, sort, unique, find or an equivalent STL algorithm, and a custom functor for descending order.",
+ 96015:"Implement a function template and a class template. Demonstrate each with more than one numeric type without duplicate type-specific functions.",
+ 96016:"Use ofstream with truncation for the initial write, append mode for the extra value, and ifstream for reading the complete file.",
+ 96017:"Use try, throw and catch for division by zero and unsupported operators. Do not divide before checking the denominator.",
+ 96018:"Open the binary file with ios::binary for both writing and reading. Check stream state and support the optional filename argument.",
+ 96019:"Implement all three Rule-of-Three members: destructor, copy constructor and copy-assignment operator. Guard self-assignment.",
+ 96020:"Use virtual display() and override in each derived class. Store objects using unique_ptr<Employee>; separately demonstrate slicing with a value object.",
+ 96021:"Count values with unordered_map. Sort distinct values by descending frequency, then ascending value for ties.",
+ 96022:"Implement a class template with push, pop, top and empty. Throw underflow_error for invalid empty-stack operations and provide the required bool specialization.",
+ 96023:"Use a hash map from value to index. Return the two distinct indices; do not reuse one array position.",
+ 96024:"Use a stack to track opening brackets. Reject a closing bracket when the stack is empty or its type does not match.",
+ 96025:"Track the minimum price seen so far and update the best profit at each later day. A negative profit must produce zero.",
+ 96026:"Use a sliding window and a set/map of last-seen character positions to maintain a substring without duplicates.",
+ 96027:"Build prefix and suffix products; do not use division. Use a suitable integer type for the product values.",
+ 96028:"Count character frequencies or sort copies of the strings. Return true only when both strings contain identical character counts.",
+ 96029:"Maintain low and high indices and repeatedly inspect the middle element. Ensure the search interval shrinks on every iteration.",
+ 96030:"Use Kadane's algorithm: maintain the best subarray ending at the current index and the best answer seen so far."
+ };
+ const requirement=requirements[id]||"Use the C++ concepts named in the topic. Keep the solution modular, validate the input assumptions and avoid hard-coded sample output.";
+ const sampleBlock=sample?sample.replace(/Input:/g,"Sample Input:").replace(/Output:/g,"Sample Output:"):"No sample is supplied for this question yet.";
+ return "Problem Statement\\n"+title+"\\n\\nTask\\n"+format+"\\n\\nRequired approach and concepts\\n"+requirement+"\\n\\nInput Format\\n"+(examples.match(/Input:\\s*[\\s\\S]*?(?=\\nOutput:|$)/)||["Read the values described in the task from standard input."])[0].replace(/^Input:\\s*/,"")+"\\n\\nConstraints\\nUse the limits stated in the task. If a numeric bound is not explicitly specified, assume input values fit in the corresponding C++ int type and use long long for accumulated sums or products when necessary. Strings are read according to the stated line/token format.\\n\\nOutput Format\\nPrint the requested result in the exact order and labels shown in the sample output. Do not print prompts, debugging text or additional explanations.\\n\\n"+sampleBlock+"\\n\\nImplementation Notes\\n- Language: C++17.\\n- Read from stdin and write to stdout.\\n- Match capitalization, spacing, ordering and decimal precision exactly.\\n- Test normal, boundary and edge cases before submitting.";
+}
+for(let i=0;i<problems.length;i++){const q=problems[i];if(cppDetailedIds.has(q[0])&&q[2]==="CPP"){q[4]=cppStatement(q);}}
+
 const oldStarter=starter;
 const cppMain="#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    return 0;\n}";
 starter=function(p){return p && p[2]==="CPP" ? cppMain : oldStarter(p)};
