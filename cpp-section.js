@@ -170,25 +170,21 @@ int main(int argc,char*argv[]){string file=argc>1?argv[1]:"students.dat";int n;c
 96019:`#include <bits/stdc++.h>
 using namespace std;
 class DynamicArray{int n;int*p;public:DynamicArray(int s):n(s),p(new int[s]{}){}DynamicArray(const DynamicArray&o):n(o.n),p(new int[o.n]){copy(o.p,o.p+n,p);}DynamicArray&operator=(const DynamicArray&o){if(this!=&o){int*q=new int[o.n];copy(o.p,o.p+o.n,q);delete[]p;p=q;n=o.n;}return *this;}~DynamicArray(){delete[]p;}int&operator[](int i){return p[i];}int size()const{return n;}};
-int main(){int n;cin>>n;DynamicArray a(n);for(int i=0;i<n;i++)cin>>a[i];DynamicArray b=a,c(n);c=a;b[0]=a[0];cout<<"Copied: ";for(int i=0;i<n;i++)cout<<b[i]<<" ";cout<<"\\nAssigned: ";for(int i=0;i<n;i++)cout<<c[i]<<" ";}
-`,
-96020:`#include <bits/stdc++.h>
+void printArray(const string&label,DynamicArray&a){cout<<label;for(int i=0;i<a.size();i++){if(i)cout<<" ";cout<<a[i];}cout<<"\\n";}
+int main(){int n;cin>>n;DynamicArray a(n);for(int i=0;i<n;i++)cin>>a[i];DynamicArray b=a,c(n);c=a;printArray("Copied: ",b);printArray("Assigned: ",c);a[0]=99;cout<<"After source change:\\n";printArray("Source: ",a);printArray("Copy: ",b);printArray("Assigned: ",c);}`,96020:`#include <bits/stdc++.h>
 using namespace std;
 class Employee{public:virtual void display(){cout<<"Employee";}virtual ~Employee()=default;};
 class Manager:public Employee{string n;public:Manager(string s):n(s){}void display()override{cout<<"Manager: "<<n;}};
 class Developer:public Employee{string n;public:Developer(string s):n(s){}void display()override{cout<<"Developer: "<<n;}};
-int main(){int n;cin>>n;vector<unique_ptr<Employee>>v;while(n--){char t;string s;cin>>t>>s;if(t=='M')v.push_back(make_unique<Manager>(s));else v.push_back(make_unique<Developer>(s));}for(auto&p:v){p->display();cout<<"\\n";}}
-`,
-96021:`#include <bits/stdc++.h>
+int main(){int n;cin>>n;vector<unique_ptr<Employee>>v;while(n--){char t;string s;cin>>t>>s;if(t=='M')v.push_back(make_unique<Manager>(s));else v.push_back(make_unique<Developer>(s));}for(auto&p:v){p->display();cout<<"\\n";}Employee sliced;cout<<"Sliced value: ";sliced.display();}`,96021:`#include <bits/stdc++.h>
 using namespace std;
 int main(){int n;cin>>n;unordered_map<int,int>freq;for(int i=0,x;i<n;i++){cin>>x;freq[x]++;}vector<pair<int,int>>v(freq.begin(),freq.end());sort(v.begin(),v.end(),[](auto a,auto b){return a.second!=b.second?a.second>b.second:a.first<b.first;});for(auto [x,f]:v)cout<<x<<":"<<f<<"\\n";}
 `,
 96022:`#include <bits/stdc++.h>
 using namespace std;
 template<class T>class Stack{vector<T>v;public:void push(T x){v.push_back(x);}void pop(){if(v.empty())throw underflow_error("Stack is empty");v.pop_back();}T top(){if(v.empty())throw underflow_error("Stack is empty");return v.back();}bool empty(){return v.empty();}};
-int main(){int n;cin>>n;Stack<int>s;while(n--){int x;cin>>x;s.push(x);}cout<<"Top: "<<s.top()<<"\\nPopped: "<<s.top()<<"\\n";s.pop();if(!s.empty())cout<<"Top: "<<s.top();}
-`,
-96023:`#include <bits/stdc++.h>
+template<>class Stack<bool>{unsigned int bits=0;int n=0;public:void push(bool x){if(n>=32)throw overflow_error("Stack full");if(x)bits|=(1u<<n);n++;}void pop(){if(n==0)throw underflow_error("Stack is empty");n--;}bool top(){if(n==0)throw underflow_error("Stack is empty");return (bits>>(n-1))&1u;}bool empty(){return n==0;}};
+int main(){int n;cin>>n;Stack<int>s;while(n--){int x;cin>>x;s.push(x);}cout<<"Top: "<<s.top()<<"\\nPopped: "<<s.top()<<"\\n";s.pop();if(!s.empty())cout<<"Top: "<<s.top()<<"\\n";else{try{s.top();}catch(const underflow_error&e){cout<<"Error: "<<e.what()<<"\\n";}}Stack<bool>b;b.push(true);cout<<"Bool top: "<<b.top();}`,96023:`#include <bits/stdc++.h>
 using namespace std;
 int main(){int n,target;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;cin>>target;unordered_map<int,int>seen;for(int i=0;i<n;i++){int need=target-a[i];if(seen.count(need)){cout<<seen[need]<<" "<<i;return 0;}seen[a[i]]=i;}}
 `,
