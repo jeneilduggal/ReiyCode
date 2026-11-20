@@ -89,7 +89,7 @@ int main(){int n;cin>>n;calls();calls();calls();cout<<"Factorial: "<<fact(n)<<"\
 96004:`#include <bits/stdc++.h>
 using namespace std;
 int main(){int r,c;cin>>r>>c;vector<vector<int>>a(r,vector<int>(c));for(auto&row:a)for(int&x:row)cin>>x;
- cout<<"Row sums: ";for(auto&row:a){int s=accumulate(row.begin(),row.end(),0);cout<<s<<" ";}cout<<"\\nTranspose:\\n";
+ cout<<"Row sums: ";for(int i=0;i<r;i++){int s=accumulate(a[i].begin(),a[i].end(),0);if(i)cout<<" ";cout<<s;}cout<<"\\nTranspose:\\n";
  for(int j=0;j<c;j++){for(int i=0;i<r;i++)cout<<a[i][j]<<(i+1==r?"":" ");cout<<"\\n";}}
 `,
 96005:`#include <bits/stdc++.h>
@@ -146,7 +146,7 @@ int main(){int r,c;cin>>r>>c;int**a=new int*[r];for(int i=0;i<r;i++){a[i]=new in
 96014:`#include <bits/stdc++.h>
 using namespace std;
 struct Desc{bool operator()(int a,int b)const{return a>b;}};
-int main(){int n;cin>>n;vector<int>v(n);for(int&x:v)cin>>x;int target;cin>>target;sort(v.begin(),v.end());v.erase(unique(v.begin(),v.end()),v.end());cout<<"Ascending: ";for(int x:v)cout<<x<<" ";cout<<"\\nTarget: "<<(find(v.begin(),v.end(),target)!=v.end()?"Found":"Not Found")<<"\\nDescending: ";sort(v.begin(),v.end(),Desc());for(int x:v)cout<<x<<" ";}
+int main(){int n;cin>>n;vector<int>v(n);for(int&x:v)cin>>x;int target;cin>>target;sort(v.begin(),v.end());v.erase(unique(v.begin(),v.end()),v.end());cout<<"Ascending: ";for(int i=0;i<(int)v.size();i++)cout<<(i?" ":"")<<v[i];cout<<"\\nTarget: "<<(find(v.begin(),v.end(),target)!=v.end()?"Found":"Not Found")<<"\\nDescending: ";sort(v.begin(),v.end(),Desc());for(int i=0;i<(int)v.size();i++)cout<<(i?" ":"")<<v[i];}
 `,
 96015:`#include <bits/stdc++.h>
 using namespace std;
