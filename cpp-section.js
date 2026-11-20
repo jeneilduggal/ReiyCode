@@ -17,9 +17,9 @@ for(const q of cppQuestions) problems.push([q[0],q[1],"CPP",q[2],q[3],q[4],"",q[
 const cppDetailedIds=new Set(Array.from({length:30},(_,i)=>96001+i));
 function cppStatement(q){
  const id=q[0],title=q[1],level=q[3],topic=q[7]||"C++ Programming",brief=q[4],examples=q[5]||"";
- const chunks=examples.split(/\\n\\s*\\n/).filter(Boolean);
- const sample=chunks.map((x,i)=>"Sample "+(i+1)+"\\n"+x).join("\\n\\n");
- const format=brief+"\\n\\nYour program must be written in standard C++17. Read all required values from standard input (cin) and print only the requested result to standard output (cout). Do not hard-code the sample values. Handle the general input, not just the examples.";
+ const chunks=examples.split(/\n\\s*\n/).filter(Boolean);
+ const sample=chunks.map((x,i)=>"Sample "+(i+1)+"\n"+x).join("\n\n");
+ const format=brief+"\n\nYour program must be written in standard C++17. Read all required values from standard input (cin) and print only the requested result to standard output (cout). Do not hard-code the sample values. Handle the general input, not just the examples.";
  const requirements={
  96001:"Use loops and an array/vector to calculate every statistic in one traversal where possible. Keep the average as a floating-point value and print exactly two digits after the decimal point.",
  96002:"Preserve the original input line for the reversed output. For palindrome checking, build a normalized copy by ignoring spaces and comparing letters without case sensitivity.",
@@ -54,7 +54,7 @@ function cppStatement(q){
  };
  const requirement=requirements[id]||"Use the C++ concepts named in the topic. Keep the solution modular, validate the input assumptions and avoid hard-coded sample output.";
  const sampleBlock=sample?sample.replace(/Input:/g,"Sample Input:").replace(/Output:/g,"Sample Output:"):"No sample is supplied for this question yet.";
- return "Problem Statement\\n"+title+"\\n\\nTask\\n"+format+"\\n\\nRequired approach and concepts\\n"+requirement+"\\n\\nInput Format\\n"+(examples.match(/Input:\\s*[\\s\\S]*?(?=\\nOutput:|$)/)||["Read the values described in the task from standard input."])[0].replace(/^Input:\\s*/,"")+"\\n\\nConstraints\\nUse the limits stated in the task. If a numeric bound is not explicitly specified, assume input values fit in the corresponding C++ int type and use long long for accumulated sums or products when necessary. Strings are read according to the stated line/token format.\\n\\nOutput Format\\nPrint the requested result in the exact order and labels shown in the sample output. Do not print prompts, debugging text or additional explanations.\\n\\n"+sampleBlock+"\\n\\nImplementation Notes\\n- Language: C++17.\\n- Read from stdin and write to stdout.\\n- Match capitalization, spacing, ordering and decimal precision exactly.\\n- Test normal, boundary and edge cases before submitting.";
+ return "Problem Statement\n"+title+"\n\nTask\n"+format+"\n\nRequired approach and concepts\n"+requirement+"\n\nInput Format\n"+(examples.match(/Input:\\s*[\\s\\S]*?(?=\nOutput:|$)/)||["Read the values described in the task from standard input."])[0].replace(/^Input:\\s*/,"")+"\n\nConstraints\nUse the limits stated in the task. If a numeric bound is not explicitly specified, assume input values fit in the corresponding C++ int type and use long long for accumulated sums or products when necessary. Strings are read according to the stated line/token format.\n\nOutput Format\nPrint the requested result in the exact order and labels shown in the sample output. Do not print prompts, debugging text or additional explanations.\n\n"+sampleBlock+"\n\nImplementation Notes\n- Language: C++17.\n- Read from stdin and write to stdout.\n- Match capitalization, spacing, ordering and decimal precision exactly.\n- Test normal, boundary and edge cases before submitting.";
 }
 for(let i=0;i<problems.length;i++){const q=problems[i];if(cppDetailedIds.has(q[0])&&q[2]==="CPP"){q[4]=cppStatement(q);}}
 
