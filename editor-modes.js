@@ -64,6 +64,14 @@ function addControls(){
 const style=document.createElement("style");
 style.textContent=`
 #description{white-space:pre-wrap;line-height:1.85;font-size:13px;color:var(--txt);overflow-wrap:anywhere}
+.statement-section{margin:0 0 17px;padding:0 0 14px;border-bottom:1px solid var(--line)}
+.statement-section:last-child{border-bottom:0}
+.statement-heading{margin:0 0 8px!important;color:var(--grad-a);font-size:12px!important;font-weight:900;letter-spacing:.6px;text-transform:uppercase}
+.statement-body p{margin:0 0 9px;line-height:1.8}
+.statement-body p:last-child{margin-bottom:0}
+.statement-code{display:block;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:12px;margin:8px 0;font:12px/1.7 'DM Mono',monospace;color:var(--editor-fg)}
+.statement-list{margin:7px 0;padding-left:21px;line-height:1.8}
+
 #example{white-space:pre-wrap;line-height:1.8}
 #tab-description .content{max-width:100%;line-height:1.8}
 #tab-description h2,#tab-description h3{letter-spacing:-.2px}
@@ -94,10 +102,45 @@ function logicWrapper(id,code){
  if(id===96028)main="int main(){"+main;
  return prefix+code+"\n"+main+"\n";
 }
+
+function escapeHtml(value){return String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]))}
+function formatStatement(raw){
+ const headingPattern=/^(Problem Statement|Task|Required approach and concepts|Input Format|Output Format|Constraints|Example(?:\\s+\\d+)?|Sample Input(?:\\s+\\d+)?|Sample Output(?:\\s+\\d+)?|Implementation Notes|Complexity(?: target)?|Approach|Notes)\\s*:?[ \\t]*$/i;
+ const blocks=[];let heading="",buffer=[];
+ const flush=()=>{
+  const body=buffer.join("\\n").trim();
+  if(!heading){if(body)blocks.push('<section class="statement-section"><div class="statement-body"><p>'+escapeHtml(body).replace(/\\n/g,"<br>")+'</p></div></section>')}
+  else if(/^Sample (Input|Output)/i.test(heading)){
+   blocks.push('<section class="statement-section"><h3 class="statement-heading">'+escapeHtml(heading)+'</h3><pre class="statement-code">'+escapeHtml(body)+'</pre></section>');
+  }else{
+   const paragraphs=body.split(/\\n\\s*\\n/).filter(Boolean);
+   const html=paragraphs.map(part=>{
+    const lines=part.split("\\n");
+    if(lines.every(line=>/^\\s*[-•]\\s+/.test(line)))return '<ul class="statement-list">'+lines.map(line=>'<li>'+escapeHtml(line.replace(/^\\s*[-•]\\s+/,""))+'</li>').join("")+'</ul>';
+    return '<p>'+escapeHtml(part).replace(/\\n/g,"<br>")+'</p>';
+   }).join("");
+   blocks.push('<section class="statement-section"><h3 class="statement-heading">'+escapeHtml(heading)+'</h3><div class="statement-body">'+html+'</div></section>');
+  }
+  heading="";buffer=[];
+ };
+ for(const line of String(raw||"").replace(/\\r/g,"").split("\\n")){
+  const match=line.trim().match(headingPattern);
+  if(match){flush();heading=match[1]}else buffer.push(line);
+ }
+ flush();
+ return '<div class="statement">'+blocks.join("")+'</div>';
+}
+function renderProblemDescription(){
+ const desc=$("description");if(!desc||!currentProblem)return;
+ let target=desc;
+ if(desc.tagName==="P"){target=document.createElement("div");target.id="description";target.className=desc.className;desc.replaceWith(target)}
+ target.innerHTML=formatStatement(currentProblem[4]||"");
+}
 const previousOpen=window.openProblem;
 window.openProblem=function(id){
  previousOpen(id);
  if(!currentProblem)return;
+ renderProblemDescription();
  addControls();
  mode="logic";
  const k=logicKey(id);let code=localStorage.getItem(k);
