@@ -28,7 +28,7 @@ No API key is embedded in this public repository. Do not put private API keys in
 - Pattern practice section with 22 original pattern exercises
 - Striver A2Z roadmap link to the maintained official sheet
 - C++ syntax highlighting, custom test cases, Run and Submit
-- Pass-count summary, Judge0 runtime and memory reporting\n- Separate Logic-only and HackerRank editor drafts for each question\n- 90 public test cases (3 per question across 30 C++ exercises)\n- GitHub Actions verification compiles each reference solution and runs every public test case
+- Pass-count summary, Judge0 runtime and memory reporting\n- Separate Logic-only and HackerRank editor drafts for each question\n- 96 public test cases (3 per question across 32 C++ exercises)\n- GitHub Actions verification compiles each reference solution and runs every public test case
 - Obsidian dark and ivory beige themes
 - Local draft autosave; optional Firebase Google sign-in and cloud sync
 
@@ -47,4 +47,4 @@ Firebase is prepared but **not active until you configure your own Firebase proj
 7. Commit the config change, wait for GitHub Pages to redeploy, then use **Dashboard → Profile / Login → Continue with Google**.
 
 Until these steps are completed, the app continues to use browser-local profile and draft storage. The Firebase config file intentionally contains placeholders; no credentials were fabricated.
-\n\n## Public test verification\n\nRun `node scripts/verify-public-tests.mjs` on a machine with Node.js 20+ and `g++` installed. The `Verify ReiyCode public tests` GitHub Actions workflow runs this check on every push and pull request. It compiles each of the 30 reference C++ programs and compares all 90 public outputs. This checks the reference implementations and test fixtures; it does not prove that every learner submission is correct or that the public Judge0 service is always available. Public test cases are intentionally shipped to the browser and are not hidden.\n
+\n\n## Public test verification\n\nRun `node scripts/verify-public-tests.mjs` on a machine with Node.js 20+ and `g++` installed. The `Verify ReiyCode public tests` GitHub Actions workflow runs this check on every push and pull request. It compiles each of the 32 reference C++ programs and compares all 90 public outputs. This checks the reference implementations and test fixtures; it does not prove that every learner submission is correct or that the public Judge0 service is always available. Public test cases are intentionally shipped to the browser and are not hidden.\n
