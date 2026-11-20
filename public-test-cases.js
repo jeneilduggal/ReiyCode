@@ -13,7 +13,7 @@
  96010:[["A 1 X","Person constructor\nStudent constructor\nTeachingAssistant constructor\nName: A\nAge: 1\nDepartment: X"],["Neha 22 IT","Person constructor\nStudent constructor\nTeachingAssistant constructor\nName: Neha\nAge: 22\nDepartment: IT"],["Sam 30 CS","Person constructor\nStudent constructor\nTeachingAssistant constructor\nName: Sam\nAge: 30\nDepartment: CS"]],
  96011:[["A 1 1000","Person constructor\nStudent constructor\nEmployee constructor\nTeachingAssistant constructor\nName: A\nAge: 1\nSalary: 1000"],["Mira 25 50000","Person constructor\nStudent constructor\nEmployee constructor\nTeachingAssistant constructor\nName: Mira\nAge: 25\nSalary: 50000"],["Dev 40 99999","Person constructor\nStudent constructor\nEmployee constructor\nTeachingAssistant constructor\nName: Dev\nAge: 40\nSalary: 99999"]],
  96012:[["1\nC 1","3.14"],["1\nR 2 5","10.00"],["3\nC 3\nR 1 1\nC 0","28.27\n1.00\n0.00"]],
- 96013:[["1 1\n8","8"],["2 2\n1 2\n3 4","1 3\n2 4"],["3 1\n5\n6\n7","5\n6\n7"]],
+ 96013:[["1 1\n8","8"],["2 2\n1 2\n3 4","1 3\n2 4"],["3 1\n5\n6\n7","5 6 7"]],
  96014:[["1\n9\n9","Ascending: 9\nTarget: Found\nDescending: 9"],["4\n4 4 4 4\n2","Ascending: 4\nTarget: Not Found\nDescending: 4"],["5\n-1 3 0 3 2\n0","Ascending: -1 0 2 3\nTarget: Found\nDescending: 3 2 0 -1"]],
  96015:[["1 2\n1.5 2.5","Max int: 2\nMax double: 2.5\nPair: 1, 2"],["-5 -2\n-3.5 -9.2","Max int: -2\nMax double: -3.5\nPair: -5, -2"],["100 100\n7.25 7.25","Max int: 100\nMax double: 7.25\nPair: 100, 100"]],
  96016:[["1\n7\n3","File sum: 10"],["2\n-5 10\n-2","File sum: 3"],["4\n1 2 3 4\n5","File sum: 15"]],
