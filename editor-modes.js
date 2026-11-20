@@ -33,11 +33,11 @@ let mode="logic", switching=false;
 function getCode(){return window.reiyadEditor?window.reiyadEditor.getValue():$("code").value}
 function setCode(value){if(window.reiyadEditor)window.reiyadEditor.setValue(value);else $("code").value=value}
 function storeDraft(){
- if(!window.currentId)return;
+ if(!currentId)return;
  localStorage.setItem(mode==="logic"?logicKey(currentId):hackerKey(currentId),getCode());
 }
 function setMode(next){
- if(!window.currentProblem)return;
+ if(!currentProblem)return;
  storeDraft();
  mode=next;
  const k=next==="logic"?logicKey(currentId):hackerKey(currentId);
@@ -95,7 +95,7 @@ function logicWrapper(id,code){
 const previousOpen=window.openProblem;
 window.openProblem=function(id){
  previousOpen(id);
- if(!window.currentProblem)return;
+ if(!currentProblem)return;
  addControls();
  mode="logic";
  const k=logicKey(id);let code=localStorage.getItem(k);
@@ -119,7 +119,7 @@ window.reiyadBuildSubmissionSource=(id,source)=>mode==="logic"?logicWrapper(id,s
 const oldRunOne=window.runOne;
 if(typeof oldRunOne==="function"){
  window.runOne=async function(input){
-   const id=window.currentId,source=window.reiyadBuildSubmissionSource(id,getCode());
+   const id=currentId,source=window.reiyadBuildSubmissionSource(id,getCode());
    const base="https://ce.judge0.com";
    const response=await fetch(base+"/submissions?base64_encoded=false&wait=false",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({source_code:source,language_id:54,stdin:input,cpu_time_limit:5,memory_limit:128000})});
    if(!response.ok)throw Error("Judge0 HTTP "+response.status);
@@ -139,5 +139,5 @@ window.resetCode=function(){
 const code=$("code");
 if(code)code.addEventListener("input",()=>{if(!switching)storeDraft()});
 if(window.reiyadEditor)window.reiyadEditor.on("change",()=>{if(!switching)storeDraft()});
-window.addEventListener("load",()=>{addControls();if(window.currentProblem)setMode("logic")});
+window.addEventListener("load",()=>{addControls();if(currentProblem)setMode("logic")});
 })();
