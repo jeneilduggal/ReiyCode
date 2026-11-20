@@ -25,7 +25,9 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    // Read input with cin and print the required output.
+    vector<string> tokens;
+    string token;
+    while (cin >> token) tokens.push_back(token);
 
     return 0;
 }`;
