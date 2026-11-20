@@ -45,17 +45,8 @@ window.renderProfile=function(){const p=JSON.parse(localStorage.getItem("reiyad_
 function renderProfileButton(){const p=JSON.parse(localStorage.getItem("reiyad_profile")||"null");const b=$("profileTopButton");if(b)b.textContent=p?(p.name||"U").slice(0,1).toUpperCase():"U"}
 const priorSave=window.saveProfile;window.saveProfile=function(){priorSave();renderProfileButton()};
 const priorUpdate=window.updateHome;window.updateHome=function(){priorUpdate();const n=$("attemptedCount");if(n)n.textContent=Object.keys(localStorage).filter(k=>k.startsWith("reiyad_code_")).length;renderProfileButton()};
-const priorOpenProblem=window.openProblem;window.openProblem=function(id){priorOpenProblem(id);if(currentProblem&&currentProblem[2]==="CPP"){addHackerMode(currentProblem)}};const oldHide=window.hideAll;window.hideAll=function(){oldHide();const pg=$("profilePage");if(pg)pg.classList.add("hide")};
-function addHackerMode(problem){
-const panel=document.querySelector("#workPage .workspace>.panel:last-child");if(!panel)return;
-let box=$("hackerMode");if(box)box.remove();
-const actions=panel.querySelector(".editor-actions");box=document.createElement("div");box.id="hackerMode";box.style.marginLeft="auto";
-box.innerHTML='<button type="button" id="hackerToggle" class="btn hacker-toggle">HackerRank style</button>';actions.append(box);
-const area=$("stdin"),tests=(sampleTests&&sampleTests[problem[0]])||[],testbox=$("testCases"),summary=$("testSummary");
-area.classList.add("hide");
-$("hackerToggle").onclick=()=>{const opening=area.classList.contains("hide");area.classList.toggle("hide");$("hackerToggle").textContent=opening?"Hide custom input":"HackerRank style";if(opening)area.scrollIntoView({block:"nearest",behavior:"smooth"})};
-if(tests.length){testbox.innerHTML=tests.map((t,i)=>'<button class="btn" type="button" data-case="'+i+'">Case '+(i+1)+'</button>').join(" ");summary.textContent=tests.length+" sample cases available. Choose one to load its input.";testbox.querySelectorAll("[data-case]").forEach(b=>b.onclick=()=>{area.value=tests[+b.dataset.case][0];area.classList.remove("hide");$("hackerToggle").textContent="Hide custom input";summary.textContent="Loaded sample case "+(+b.dataset.case+1)+" · press Run to execute"});}
-}/* Format the four Leet-style C++ additions after leet-ui.js registers them. */
+const priorOpenProblem=window.openProblem;window.openProblem=function(id){priorOpenProblem(id)};const oldHide=window.hideAll;window.hideAll=function(){oldHide();const pg=$("profilePage");if(pg)pg.classList.add("hide")};
+/* Format the four Leet-style C++ additions after leet-ui.js registers them. */
 problems.forEach(q=>{
  if([96027,96028,96029,96030].includes(q[0])&&q[2]==="CPP"&&!q[4].includes("Problem Statement")){
   const brief=q[4],examples=q[5]||"";
