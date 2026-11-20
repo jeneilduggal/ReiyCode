@@ -10,7 +10,7 @@ const sigEnd=source.indexOf("\nconst logicStarter",sigStart);
 const starterStart=sigEnd+1;
 const starterEnd=source.indexOf("\nconst hackerStarter",starterStart);
 const wrapperStart=source.indexOf("function logicWrapper(",starterEnd);
-const wrapperEnd=source.indexOf("\nconst oldRunOne",wrapperStart);
+const wrapperEnd=source.indexOf("\n\nfunction escapeHtml",wrapperStart);
 if([sigStart,sigEnd,starterEnd,wrapperStart,wrapperEnd].some(x=>x<0))throw new Error("Could not extract editor wrapper functions.");
 const snippet=source.slice(sigStart,sigEnd)+"\n"+source.slice(starterStart,starterEnd)+"\n"+source.slice(wrapperStart,wrapperEnd);
 const api=vm.runInNewContext("(()=>{"+snippet+";return {logicStarter,logicWrapper}})()");
