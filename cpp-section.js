@@ -60,7 +60,168 @@ for(let i=0;i<problems.length;i++){const q=problems[i];if(cppDetailedIds.has(q[0
 
 const oldStarter=starter;
 const cppMain="#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    return 0;\n}";
-starter=function(p){return p && p[2]==="CPP" ? cppMain : oldStarter(p)};
+
+const cppStarters={
+96001:`#include <bits/stdc++.h>
+using namespace std;
+int main(){
+ int n; cin>>n;
+ vector<int>a(n);
+ for(int &x:a)cin>>x;
+ long long sum=0; int mn=INT_MAX,mx=INT_MIN,even=0;
+ for(int x:a){sum+=x;mn=min(mn,x);mx=max(mx,x);if(x%2==0)even++;}
+ cout<<"Sum: "<<sum<<"\\nMin: "<<mn<<"\\nMax: "<<mx<<"\\nEven: "<<even<<"\\nAverage: "<<fixed<<setprecision(2)<<(double)sum/n;
+}`,
+96002:`#include <bits/stdc++.h>
+using namespace std;
+int main(){
+ string s; getline(cin,s);
+ string rev=s; reverse(rev.begin(),rev.end());
+ string t; for(char c:s)if(c!=' ')t+=tolower((unsigned char)c);
+ string r=t; reverse(r.begin(),r.end());
+ cout<<"Reversed: "<<rev<<"\\nPalindrome: "<<(t==r?"Yes":"No");
+}`,
+96003:`#include <bits/stdc++.h>
+using namespace std;
+long long fact(int n){return n<=1?1:n*fact(n-1);}
+int calls(){static int count=0;return ++count;}
+int main(){int n;cin>>n;calls();calls();calls();cout<<"Factorial: "<<fact(n)<<"\\nCall count: "<<calls()-1;}`,
+96004:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int r,c;cin>>r>>c;vector<vector<int>>a(r,vector<int>(c));for(auto&row:a)for(int&x:row)cin>>x;
+ cout<<"Row sums: ";for(auto&row:a){int s=accumulate(row.begin(),row.end(),0);cout<<s<<" ";}cout<<"\\nTranspose:\\n";
+ for(int j=0;j<c;j++){for(int i=0;i<r;i++)cout<<a[i][j]<<(i+1==r?"":" ");cout<<"\\n";}}
+`,
+96005:`#include <bits/stdc++.h>
+using namespace std;
+long long total(int*p,int n){long long s=0;for(int i=0;i<n;i++)s+=*(p+i);return s;}
+int main(){int n;cin>>n;int*p=new int[n];for(int i=0;i<n;i++)cin>>*(p+i);cout<<"Sum: "<<total(p,n);delete[]p;}
+`,
+96006:`#include <bits/stdc++.h>
+using namespace std;
+class Student{int roll,marks;public:Student():roll(0),marks(0){}Student(int r,int m):roll(r),marks(m){}void display(){cout<<"Roll: "<<roll<<", Marks: "<<marks<<"\\n";}};
+int main(){int r,m;cin>>r>>m;Student a,b(r,m);a.display();b.display();}
+`,
+96007:`#include <bits/stdc++.h>
+using namespace std;
+class Number{int*p;public:Number(int v){p=new int(v);}Number(const Number&o){p=new int(*o.p);}~Number(){delete p;}void set(int v){*p=v;}int get()const{return *p;}};
+int main(){int a,b;cin>>a>>b;Number x(a),y=x;x.set(b);cout<<"Original: "<<x.get()<<"\\nCopy: "<<y.get();}
+`,
+96008:`#include <bits/stdc++.h>
+using namespace std;
+double area(int s){return s*s;}double area(double r){return 3.141592653589793*r*r;}
+int main(){int s;double r;cin>>s>>r;cout<<"Square: "<<area(s)<<"\\nCircle: "<<fixed<<setprecision(2)<<area(r);}
+`,
+96009:`#include <bits/stdc++.h>
+using namespace std;
+class Complex{double r,i;public:Complex(double a,double b):r(a),i(b){}friend Complex operator+(Complex a,Complex b){return {a.r+b.r,a.i+b.i};}friend ostream&operator<<(ostream&o,const Complex&z){o<<z.r<<(z.i<0?"":"+")<<z.i<<"i";return o;}};
+int main(){double a,b,c,d;cin>>a>>b>>c>>d;cout<<"Sum: "<<Complex(a,b)+Complex(c,d);}
+`,
+96010:`#include <bits/stdc++.h>
+using namespace std;
+class Person{protected:string name;int age;public:Person(string n,int a):name(n),age(a){cout<<"Person constructor\\n";}};
+class Student:public Person{protected:string dept;public:Student(string n,int a,string d):Person(n,a),dept(d){cout<<"Student constructor\\n";}};
+class TeachingAssistant:public Student{public:TeachingAssistant(string n,int a,string d):Student(n,a,d){cout<<"TeachingAssistant constructor\\n";}void show(){cout<<"Name: "<<name<<"\\nAge: "<<age<<"\\nDepartment: "<<dept;}};
+int main(){string n,d;int a;cin>>n>>a>>d;TeachingAssistant t(n,a,d);t.show();}
+`,
+96011:`#include <bits/stdc++.h>
+using namespace std;
+class Person{protected:string name;int age;public:Person(string n,int a):name(n),age(a){cout<<"Person constructor\\n";}};
+class Student:virtual public Person{public:Student(string n,int a):Person(n,a){cout<<"Student constructor\\n";}};
+class Employee:virtual public Person{protected:int salary;public:Employee(string n,int a,int s):Person(n,a),salary(s){cout<<"Employee constructor\\n";}};
+class TeachingAssistant:public Student,public Employee{public:TeachingAssistant(string n,int a,int s):Person(n,a),Student(n,a),Employee(n,a,s){cout<<"TeachingAssistant constructor\\n";}void show(){cout<<"Name: "<<name<<"\\nAge: "<<age<<"\\nSalary: "<<salary;}};
+int main(){string n;int a,s;cin>>n>>a>>s;TeachingAssistant t(n,a,s);t.show();}
+`,
+96012:`#include <bits/stdc++.h>
+using namespace std;
+class Shape{public:virtual double area()=0;virtual ~Shape()=default;};
+class Circle:public Shape{double r;public:Circle(double x):r(x){}double area()override{return acos(-1)*r*r;}};
+class Rectangle:public Shape{double w,h;public:Rectangle(double a,double b):w(a),h(b){}double area()override{return w*h;}};
+int main(){int n;cin>>n;vector<unique_ptr<Shape>>v;while(n--){char t;cin>>t;if(t=='C'){double r;cin>>r;v.push_back(make_unique<Circle>(r));}else{double w,h;cin>>w>>h;v.push_back(make_unique<Rectangle>(w,h));}}for(auto&p:v)cout<<fixed<<setprecision(2)<<p->area()<<"\\n";}
+`,
+96013:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int r,c;cin>>r>>c;int**a=new int*[r];for(int i=0;i<r;i++){a[i]=new int[c];for(int j=0;j<c;j++)cin>>a[i][j];}for(int j=0;j<c;j++){for(int i=0;i<r;i++)cout<<a[i][j]<<(i+1==r?"":" ");cout<<"\\n";}for(int i=0;i<r;i++)delete[]a[i];delete[]a;}
+`,
+96014:`#include <bits/stdc++.h>
+using namespace std;
+struct Desc{bool operator()(int a,int b)const{return a>b;}};
+int main(){int n;cin>>n;vector<int>v(n);for(int&x:v)cin>>x;int target;cin>>target;sort(v.begin(),v.end());v.erase(unique(v.begin(),v.end()),v.end());cout<<"Ascending: ";for(int x:v)cout<<x<<" ";cout<<"\\nTarget: "<<(find(v.begin(),v.end(),target)!=v.end()?"Found":"Not Found")<<"\\nDescending: ";sort(v.begin(),v.end(),Desc());for(int x:v)cout<<x<<" ";}
+`,
+96015:`#include <bits/stdc++.h>
+using namespace std;
+template<class T>T maximumValue(T a,T b){return a>b?a:b;}
+template<class A,class B>class Pair{A first;B second;public:Pair(A a,B b):first(a),second(b){}void display(){cout<<first<<", "<<second;}};
+int main(){int a,b;double x,y;cin>>a>>b>>x>>y;cout<<"Max int: "<<maximumValue(a,b)<<"\\nMax double: "<<maximumValue(x,y)<<"\\nPair: ";Pair<int,int>p(a,b);p.display();}
+`,
+96016:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int extra;cin>>extra;{ofstream f("numbers.txt");for(int x:a)f<<x<<"\\n";}{ofstream f("numbers.txt",ios::app);f<<extra<<"\\n";}ifstream f("numbers.txt");long long sum=0;int x;while(f>>x)sum+=x;cout<<"File sum: "<<sum;}
+`,
+96017:`#include <bits/stdc++.h>
+using namespace std;
+int main(){double a,b;char op;cin>>a>>b>>op;try{if(op=='+')cout<<a+b;else if(op=='-')cout<<a-b;else if(op=='*')cout<<a*b;else if(op=='/'){if(b==0)throw runtime_error("Division by zero");cout<<a/b;}else throw runtime_error("Invalid operator");}catch(const exception&e){cout<<"Error: "<<e.what();}}
+`,
+96018:`#include <bits/stdc++.h>
+using namespace std;
+struct Student{int id;char name[50];int marks;};
+int main(int argc,char*argv[]){string file=argc>1?argv[1]:"students.dat";int n;cin>>n;vector<Student>a(n);for(auto&s:a)cin>>s.id>>s.name>>s.marks;{ofstream f(file,ios::binary);f.write((char*)a.data(),n*sizeof(Student));}vector<Student>b(n);ifstream f(file,ios::binary);f.read((char*)b.data(),n*sizeof(Student));for(auto&s:b)cout<<s.id<<" "<<s.name<<" "<<s.marks<<"\\n";}
+`,
+96019:`#include <bits/stdc++.h>
+using namespace std;
+class DynamicArray{int n;int*p;public:DynamicArray(int s):n(s),p(new int[s]{}){}DynamicArray(const DynamicArray&o):n(o.n),p(new int[o.n]){copy(o.p,o.p+n,p);}DynamicArray&operator=(const DynamicArray&o){if(this!=&o){int*q=new int[o.n];copy(o.p,o.p+o.n,q);delete[]p;p=q;n=o.n;}return *this;}~DynamicArray(){delete[]p;}int&operator[](int i){return p[i];}int size()const{return n;}};
+int main(){int n;cin>>n;DynamicArray a(n);for(int i=0;i<n;i++)cin>>a[i];DynamicArray b=a,c(n);c=a;b[0]=a[0];cout<<"Copied: ";for(int i=0;i<n;i++)cout<<b[i]<<" ";cout<<"\\nAssigned: ";for(int i=0;i<n;i++)cout<<c[i]<<" ";}
+`,
+96020:`#include <bits/stdc++.h>
+using namespace std;
+class Employee{public:virtual void display(){cout<<"Employee";}virtual ~Employee()=default;};
+class Manager:public Employee{string n;public:Manager(string s):n(s){}void display()override{cout<<"Manager: "<<n;}};
+class Developer:public Employee{string n;public:Developer(string s):n(s){}void display()override{cout<<"Developer: "<<n;}};
+int main(){int n;cin>>n;vector<unique_ptr<Employee>>v;while(n--){char t;string s;cin>>t>>s;if(t=='M')v.push_back(make_unique<Manager>(s));else v.push_back(make_unique<Developer>(s));}for(auto&p:v){p->display();cout<<"\\n";}}
+`,
+96021:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n;cin>>n;unordered_map<int,int>freq;for(int i=0,x;i<n;i++){cin>>x;freq[x]++;}vector<pair<int,int>>v(freq.begin(),freq.end());sort(v.begin(),v.end(),[](auto a,auto b){return a.second!=b.second?a.second>b.second:a.first<b.first;});for(auto [x,f]:v)cout<<x<<":"<<f<<"\\n";}
+`,
+96022:`#include <bits/stdc++.h>
+using namespace std;
+template<class T>class Stack{vector<T>v;public:void push(T x){v.push_back(x);}void pop(){if(v.empty())throw underflow_error("Stack is empty");v.pop_back();}T top(){if(v.empty())throw underflow_error("Stack is empty");return v.back();}bool empty(){return v.empty();}};
+int main(){int n;cin>>n;Stack<int>s;while(n--){int x;cin>>x;s.push(x);}cout<<"Top: "<<s.top()<<"\\nPopped: "<<s.top()<<"\\n";s.pop();if(!s.empty())cout<<"Top: "<<s.top();}
+`,
+96023:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n,target;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;cin>>target;unordered_map<int,int>seen;for(int i=0;i<n;i++){int need=target-a[i];if(seen.count(need)){cout<<seen[need]<<" "<<i;return 0;}seen[a[i]]=i;}}
+`,
+96024:`#include <bits/stdc++.h>
+using namespace std;
+int main(){string s;cin>>s;stack<char>st;for(char c:s){if(c=='('||c=='['||c=='{')st.push(c);else{if(st.empty()){cout<<"false";return 0;}char t=st.top();st.pop();if((c==')'&&t!='(')||(c==']'&&t!='[')||(c=='}'&&t!='{')){cout<<"false";return 0;}}}cout<<(st.empty()?"true":"false");}
+`,
+96025:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n;cin>>n;vector<int>p(n);for(int&x:p)cin>>x;int mn=INT_MAX,ans=0;for(int x:p){mn=min(mn,x);ans=max(ans,x-mn);}cout<<ans;}
+`,
+96026:`#include <bits/stdc++.h>
+using namespace std;
+int main(){string s;cin>>s;unordered_map<char,int>last;int left=0,ans=0;for(int r=0;r<(int)s.size();r++){if(last.count(s[r]))left=max(left,last[s[r]]+1);last[s[r]]=r;ans=max(ans,r-left+1);}cout<<ans;}
+`,
+96027:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n;cin>>n;vector<long long>a(n),pre(n,1),suf(n,1);for(auto&x:a)cin>>x;for(int i=1;i<n;i++)pre[i]=pre[i-1]*a[i-1];for(int i=n-2;i>=0;i--)suf[i]=suf[i+1]*a[i+1];for(int i=0;i<n;i++)cout<<pre[i]*suf[i]<<(i+1==n?"":" ");}`,
+96028:`#include <bits/stdc++.h>
+using namespace std;
+int main(){string a,b;cin>>a>>b;sort(a.begin(),a.end());sort(b.begin(),b.end());cout<<(a==b?"true":"false");}
+`,
+96029:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int target;cin>>target;int l=0,r=n-1,ans=-1;while(l<=r){int m=l+(r-l)/2;if(a[m]==target){ans=m;break;}if(a[m]<target)l=m+1;else r=m-1;}cout<<ans;}
+`,
+96030:`#include <bits/stdc++.h>
+using namespace std;
+int main(){int n;cin>>n;long long cur,ans;cin>>cur;ans=cur;for(int i=1;i<n;i++){long long x;cin>>x;cur=max(x,cur+x);ans=max(ans,cur);}cout<<ans;}
+`
+};
+starter=function(p){return p&&cppStarters[p[0]]?cppStarters[p[0]]:p&&p[2]==="CPP"?cppMain:oldStarter(p)};
+
 const cppSamples={
 96001:[["5\n2 7 4 9 6","Sum: 28\nMin: 2\nMax: 9\nEven: 3\nAverage: 5.60"]],
 96002:[["Never odd or even","Reversed: neve ro ddo reveN\nPalindrome: Yes"]],
