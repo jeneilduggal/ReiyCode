@@ -37,6 +37,10 @@ const cppSamples={
 };
 Object.assign(sampleTests,cppSamples);
 Object.assign(sampleTests,{
+96019:[["3\n1 2 3","Copied: 1 2 3\nAssigned: 1 2 3\nAfter source change:\nSource: 99 2 3\nCopy: 1 2 3\nAssigned: 1 2 3"]],
+96020:[["2\nM Asha\nD Dev","Manager: Asha\nDeveloper: Dev\nSliced value: Employee"]],
+96021:[["8\n4 2 4 3 2 4 3 5","4:3\n2:2\n3:2\n5:1"]],
+96022:[["3\n10 20 30","Top: 30\nPopped: 30\nTop: 20\nBool top: 1\nError: Stack is empty"]],
 96023:[["4\n2 7 11 15\n9","0 1"],["3\n3 2 4\n6","1 2"],["2\n3 3\n6","0 1"]],
 96024:[["()","true"],["([)]","false"],["{[]}","true"],["(","false"]],
 96025:[["6\n7 1 5 3 6 4","5"],["5\n7 6 4 3 1","0"],["2\n2 4","2"]],
