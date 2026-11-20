@@ -193,6 +193,21 @@ window.openProblem=function(id){
 };
 window.reiyadEditorMode=()=>mode;
 window.reiyadBuildSubmissionSource=(id,source)=>mode==="logic"?logicWrapper(id,source):source;
+
+const originalSubmit=window.submitCode;
+if(typeof originalSubmit==="function"){
+ window.submitCode=async function(){
+  const extra=(window.hiddenTestCases&&window.hiddenTestCases[currentId])||[];
+  const start=Array.isArray(window.testCases)?window.testCases.length:0;
+  if(Array.isArray(window.testCases))window.testCases.push(...extra.map(([input,expected])=>({input,expected})));
+  try{
+   await originalSubmit();
+   if(extra.length&&$("testSummary"))$("testSummary").textContent+=" · "+extra.length+" additional judge check(s) included";
+  }finally{
+   if(Array.isArray(window.testCases))window.testCases.splice(start,extra.length);
+  }
+ };
+}
 const oldRunOne=window.runOne;
 if(typeof oldRunOne==="function"){
  window.runOne=async function(input){
