@@ -7,6 +7,7 @@ import { spawnSync } from "node:child_process";
 const root=process.cwd();
 const cppText=fs.readFileSync(path.join(root,"cpp-section.js"),"utf8");
 const publicText=fs.readFileSync(path.join(root,"public-test-cases.js"),"utf8");
+const hiddenText=fs.readFileSync(path.join(root,"hidden-test-cases.js"),"utf8");
 const start=cppText.indexOf("const cppStarters=");
 const end=cppText.indexOf("\n};\nstarter=function",start);
 if(start<0||end<0)throw new Error("Could not locate the C++ reference program map.");
@@ -14,7 +15,8 @@ const literal=cppText.slice(start+"const cppStarters=".length,end+2);
 const programs=vm.runInNewContext("("+literal+")");
 const sandbox={sampleTests:{},window:{}};
 vm.runInNewContext(publicText,sandbox);
-const tests=sandbox.sampleTests;
+vm.runInNewContext(hiddenText,sandbox);
+const tests=Object.fromEntries(Object.entries(sandbox.sampleTests).map(([id,cases])=>[id,[...cases,...(sandbox.window.hiddenTestCases?.[id]||[])]]));
 const ids=Object.keys(tests).sort((a,b)=>Number(a)-Number(b));
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),"reiycode-tests-"));
 let total=0,passed=0,failed=[];
@@ -36,5 +38,5 @@ try{
   }
  }
 }finally{fs.rmSync(temp,{recursive:true,force:true})}
-console.log("Public reference verification: "+passed+"/"+total+" cases passed across "+ids.length+" questions.");
+console.log("Reference verification (public + supplementary hidden): "+passed+"/"+total+" cases passed across "+ids.length+" questions.");
 if(failed.length){for(const f of failed)console.error(JSON.stringify(f));process.exitCode=1}
