@@ -135,6 +135,8 @@ function renderProblemDescription(){
  let target=desc;
  if(desc.tagName==="P"){target=document.createElement("div");target.id="description";target.className=desc.className;desc.replaceWith(target)}
  target.innerHTML=formatStatement(currentProblem[4]||"");
+ const example=$("example");
+ if(example&&currentProblem[2]==="CPP"){const alreadyIncluded=/Sample Input/i.test(currentProblem[4]||"");example.style.display=alreadyIncluded?"none":"";const heading=example.previousElementSibling;if(heading&&heading.tagName==="H3")heading.style.display=alreadyIncluded?"none":"";}
 }
 const previousOpen=window.openProblem;
 window.openProblem=function(id){
