@@ -21,7 +21,7 @@ try{
  for(const id of ids){
   const code=api.logicStarter([id,"Problem","CPP"]);
   const full=api.logicWrapper(id,code);
-  const src=path.join(dir,id+".cpp"),bin=path.join(dir,id);
+  const src=path.join(dir,String(id)+".cpp"),bin=path.join(dir,String(id));
   fs.writeFileSync(src,full);
   const result=spawnSync("g++",["-std=c++17","-fsyntax-only",src],{encoding:"utf8",timeout:30000});
   if(result.status!==0)failed.push({id,error:result.stderr||result.error?.message||"compile failed"});
