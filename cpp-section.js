@@ -214,7 +214,19 @@ int main(){int n;cin>>n;vector<int>a(n);for(int&x:a)cin>>x;int target;cin>>targe
 96030:`#include <bits/stdc++.h>
 using namespace std;
 int main(){int n;cin>>n;long long cur,ans;cin>>cur;ans=cur;for(int i=1;i<n;i++){long long x;cin>>x;cur=max(x,cur+x);ans=max(ans,cur);}cout<<ans;}
-`
+`,
+96031:`#include <bits/stdc++.h>
+using namespace std;
+class Device{string name;public:Device(string n):name(n){cout<<"Device Constructor\\n";}~Device(){cout<<"Device Destructor\\n";}};
+class Computer:public Device{public:Computer(string n):Device(n){cout<<"Computer Constructor\\n";}~Computer(){cout<<"Computer Destructor\\n";}};
+class Laptop:public Computer{int id;public:Laptop(string n,int x):Computer(n),id(x){cout<<"Laptop Constructor\\n";}~Laptop(){cout<<"Laptop Destructor\\n";}void display(){cout<<"Device ID: "<<id<<"\\n";}};
+int main(){string name;int id;cin>>name>>id;{Laptop laptop(name,id);laptop.display();}}`,
+96032:`#include <bits/stdc++.h>
+using namespace std;
+class Employee{private:int id;protected:string name;public:Employee(string n,int x):id(x),name(n){}int getId()const{return id;}};
+class PermanentEmployee:public Employee{protected:double basicSalary;public:PermanentEmployee(string n,int id,double s):Employee(n,id),basicSalary(s){}};
+class Payroll:public PermanentEmployee{public:Payroll(string n,int id,double s):PermanentEmployee(n,id,s){}void display(){double hra=basicSalary*0.20,da=basicSalary*0.10,total=basicSalary+hra+da;cout<<"Name: "<<name<<"\\nID: "<<getId()<<"\\nBasic Salary: "<<fixed<<setprecision(2)<<basicSalary<<"\\nFinal Salary: "<<total; }};
+int main(){string name;int id;double salary;cin>>name>>id>>salary;Payroll p(name,id,salary);p.display();}`
 };
 starter=function(p){return p&&cppStarters[p[0]]?cppStarters[p[0]]:p&&p[2]==="CPP"?cppMain:oldStarter(p)};
 
