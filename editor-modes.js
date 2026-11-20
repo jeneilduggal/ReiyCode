@@ -84,6 +84,15 @@ style.textContent=`
 #editorModeHint{margin-left:auto}
 @media(max-width:600px){#editorModeHint{width:100%;margin-left:0}}
 `;
+
+const layoutFix=document.createElement("style");layoutFix.textContent=`
+#workPage .workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;align-items:stretch}
+#workPage .workspace>.panel{min-width:0;width:100%}
+#tab-solutions .content{width:100%;max-width:none;min-width:0;padding:22px}
+#tab-solutions .solution-code{display:block;width:100%;max-width:100%;min-width:0;max-height:72vh;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;tab-size:4;padding:20px;font:13px/1.8 "DM Mono",monospace}
+#workPage .testbox{width:100%;min-width:0}
+@media(max-width:850px){#workPage .workspace{grid-template-columns:minmax(0,1fr)!important}#tab-solutions .content{padding:16px}}
+`;document.head.appendChild(layoutFix);
 document.head.appendChild(style);
 function logicWrapper(id,code){
  const prefix="#include <bits/stdc++.h>\nusing namespace std;\n";
@@ -131,35 +140,7 @@ function formatStatement(raw){
  return '<div class="statement">'+blocks.join("")+'</div>';
 }
 
-function prettyCpp(source){
- const input=String(source||"").replace(/\\r/g,"");
- let out="",line="",indent=0,paren=0,bracket=0,inString="",escape=false;
- const pad=()=> "    ".repeat(Math.max(0,indent));
- const flush=()=>{const value=line.trim();if(value){out+=pad()+value+"\\n";line=""}};
- for(let i=0;i<input.length;i++){
-  const ch=input[i],next=input[i+1];
-  if(inString){line+=ch;if(escape)escape=false;else if(ch==="\\\\")escape=true;else if(ch===inString)inString="";continue}
-  if(ch==='"'||ch==="'"){inString=ch;line+=ch;continue}
-  if(ch==="(")paren++;if(ch===")")paren=Math.max(0,paren-1);
-  if(ch==="[")bracket++;if(ch==="]")bracket=Math.max(0,bracket-1);
-  if(ch==="{"){line=line.trimEnd();if(line&&!line.endsWith(" "))line+=" ";line+="{";flush();indent++;continue}
-  if(ch==="}"){
-   flush();indent=Math.max(0,indent-1);line="}";
-   let j=i+1;while(j<input.length&&/\\s/.test(input[j]))j++;
-   if(input[j]===";"||input[j]===","){line+=input[j];i=j;flush()}
-   else if(input.slice(j,j+4)==="else"){line+=" else";i=j+3;flush()}
-   else flush();
-   continue;
-  }
-  if(ch===";"&&paren===0){line=line.trimEnd()+";";flush();continue}
-  if(ch==="\\n"){if(line.trim())flush();continue}
-  if(/\\s/.test(ch)){if(line&&!line.endsWith(" "))line+=" ";continue}
-  if(ch==="," ){line=line.trimEnd()+", ";continue}
-  line+=ch;
- }
- flush();
- return out.trim();
-}
+function prettyCpp(source){return String(source||'').replace(/\\r/g,'');}
 function renderProblemDescription(){
  const desc=$("description");if(!desc||!currentProblem)return;
  let target=desc;
@@ -181,19 +162,16 @@ window.openProblem=function(id){
  $("editorModeLogic")?.classList.add("active");$("editorModeHacker")?.classList.remove("active");
  if($("editorModeHint"))$("editorModeHint").textContent="Class/function only · Judge wrapper supplied automatically";
  if($("testSummary"))$("testSummary").textContent="Logic-only submissions are wrapped with a question-specific main() for public tests.";
- const pane=$("tab-solutions");
- if(pane&&currentProblem[2]==="CPP"&&typeof window.starter==="function"){
-   const source=window.starter(currentProblem);
-   const wrap=document.createElement("div");wrap.className="content";
-   const h=document.createElement("h2");h.textContent="Complete C++17 reference solution";
-   const p=document.createElement("p");p.className="muted";p.textContent="Reference code is separate from your editor draft.";
-   const pre=document.createElement("pre");pre.className="solution-code";pre.textContent=prettyCpp(source);
-   wrap.append(h,p,pre);pane.replaceChildren(wrap);
- }
+ const testbox=document.querySelector("#workPage .testbox");if(testbox)testbox.style.display="none";
+ if($("testCases"))$("testCases").replaceChildren();
+ if($("testSummary"))$("testSummary").textContent="Run or submit your program to reveal the public test cases.";
+ /* The Solutions tab is rendered by the dedicated reference-solution component. */
 };
 window.reiyadEditorMode=()=>mode;
 window.reiyadBuildSubmissionSource=(id,source)=>mode==="logic"?logicWrapper(id,source):source;
 
+const priorRunCode=window.runCode;
+if(typeof priorRunCode==="function")window.runCode=async function(){const box=document.querySelector("#workPage .testbox");if(box)box.style.display="";return priorRunCode.apply(this,arguments)};
 const originalSubmit=window.submitCode;
 if(typeof originalSubmit==="function"){
  window.submitCode=async function(){
